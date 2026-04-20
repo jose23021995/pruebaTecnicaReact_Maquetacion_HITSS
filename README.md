@@ -7,9 +7,9 @@ PRUEBA TECNICA -MAQUETADO EN REACT -DEB FRONT END.
 ## 📋 Índice
 - [Descripción](#descripción)
 - [Instalación](#instalación)
-- [Uso](#uso)
+- [Ejecucion del proyecto](#Ejecucion)
 - [Tecnologías](#tecnologías)
-- [Contribución](#contribución)
+- [Estructura](#estructura)
 - [Licencia](#licencia)
 
 ## 📖 Descripción
@@ -89,12 +89,12 @@ git clone https://github.com/jose23021995/pruebaTecnicaReact_Maquetacion_HITSS.g
 ```
 `
 
-## 🚀 Uso
+## 🚀 Ejecucion del proyecto
 Ejemplos de cómo ejecutar el proyecto o fragmentos de código básicos para mostrar su funcionalidad.
 
 ```
 
-npm start
+npm run dev
 
 ```
 
@@ -103,7 +103,7 @@ npm start
 * **Backend:** Node.js y Express (API Rest)
 * **Entorno de desarrollo:** Vite
 
-## 🤝 Contribución
+## 🤝 Estructura
 Si deseas contribuir, por favor sigue estos pasos:
 1. Haz un Fork del proyecto.
 2. Crea una rama para tu mejora (`git checkout -b feature/MejoraIncreible`).
@@ -111,5 +111,3 @@ Si deseas contribuir, por favor sigue estos pasos:
 4. Haz un Push a la rama (`git push origin feature/MejoraIncreible`).
 5. Abre un Pull Request.
 
-## 📄 Licencia
-Este proyecto está bajo la Licencia [MIT] - mira el archivo [LICENSE.md](LICENSE.md) para detalles.
