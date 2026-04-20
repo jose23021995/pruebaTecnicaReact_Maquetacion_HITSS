@@ -1,0 +1,152 @@
+
+export const Stepper={
+    bodyStepper:{
+        id:1,
+        title:"Tecnología para tu Empresa",
+        img:null,
+        text:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature\n from 45 BC, making it over 2000 years old.",
+        button_next:"Regresar",
+        button_return:"Siguiente",
+        button_end:"Finalizar",
+        card:[
+                {
+                    stepper:1,
+                    title:"Plan Asignado",
+                    text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
+                    options:[
+                        {
+                            id:1,
+                            title:"28506 - Plan Conect Star EMP 35GB FIN",
+                            subtitle:"incluye:",
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a\n page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-\nless normal distribution of letters, as opposed to using 'Content here, content here',\n making it look like readable English.`,
+                            img:null
+                        },
+                        {
+                            id:2,
+                            title:"28506 - Plan Conect Star EMP 35GB FIN",
+                            subtitle:"incluye:",
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a\n page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-\nless normal distribution of letters, as opposed to using 'Content here, content here',\n making it look like readable English.`,
+                            img:null
+                        },
+                        {
+                            id:3,
+                            title:"28506 - Plan Conect Star EMP 35GB FIN",
+                            subtitle:"incluye:",
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a\n page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-\nless normal distribution of letters, as opposed to using 'Content here, content here',\n making it look like readable English.`,
+                            img:null
+                        }
+                    ],
+                    form:null,
+                    footer:null
+                },
+                {
+                    stepper:2,
+                    title:"Datos Personales",
+                    text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
+                    options:null,
+                    form:{
+                        input_nombre:"Nombre",
+                        input_celular:"Número de Celular",
+                        input_tipodocumento:"Tipo de Documento",
+                        numerodocumento:"Número de Documento",
+                        input_email:"Correo Electrónico Corporativo",
+                        input_date_fechanacimiento:"Fecha de Nacimiento",
+                        titleDomicilio:"Domicilio",
+                        input_residencia:"Dirección de Residencia",
+                        input_ciudad:"Ciudad / Municipio",
+                        input_departamento:"Departamento",
+                        input_barrio:"Barrio"
+
+                    },
+                    footer:null
+                },
+                {
+                    stepper:3,
+                    title:"¡Activa a tu familia con\n Bolívar y Claro!",
+                    text:"Dependiendo del tipo de línea de tu familiar,\n elige una de las siguientes opciones.",
+                    options:[
+                      {
+                            id:1,
+                            title:"Línea Nueva",
+                            subtitle:null,
+                            text:`Si deseas un nuevo número y recibir una nueva Sim Card, elige esta opción.`,
+                            img:"assets/paso3/hijo/ceIco-sim1.png"
+                        },
+                        {
+                            id:2,
+                            title:"28506 - Plan Conect Star EMP 35GB FIN",
+                            subtitle:null,
+                            text:`Si eres usuario actual de Claro (Postpago y Prepago) y quieres cambiar tu \nplan, elige esta opción.`,
+                            img:"assets/paso3/hijo/Group321.png"
+                        },
+                        {
+                            id:3,
+                            title:"28506 - Plan Conect Star EMP 35GB FIN",
+                            subtitle:null,
+                            text:`Si eres usuario de otro operador y deseas conservar tu número, elige esta opción.\n Regresar`,
+                            img:"assets/paso3/hijo/ceIco-reversa-portabilidad1.png"
+                        }
+                    ],
+                    form:null,
+                    footer:"* Enviaremos al domicilio que registraste la nueva Sim Card"
+                },
+                {
+                    stepper:4,
+                    title:"Portabilidad Claro",
+                    text:"Recuerda: si eres usuario de otro operador y\n deseas portar tu número, la línea debe ser a tu\n nombre, estar al día en tus pagos y no puede\n estar suspendida",
+                    options:null,
+                    form:{
+                        input_operador:"* Operador actual",
+                        input_celular:"* Ingresa tu número de celular actual:",
+                        input_entidad:"* Entidad a la que perteneces"
+                    },
+                    footer:null
+                },
+                {
+                    stepper:5,
+                    title:"Aceptación de Términos",
+                    text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
+                    options:[
+                        {
+                            id:1,
+                            title:"Lorem Ipsum is not simply",
+                            subtitle:null,
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a page when\n looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal\n distribution of letters, as opposed to using 'Content here, content here', making it look like readable\n English. \n\n
+                            <b>There are many variations of passages of Lorem Ipsum available, but the majority have suffered\n alteration in some form, by injected humour, or randomised words which don't look even slightly\n believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't\n anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet\n tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.\n It uses a dictionary of over 200 Latin words, combined with a handful of model sentence\n structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is\n therefore always free from repetition, injected humour, or non-characteristic words etc.</b>
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin\n professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,\n consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical\n literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and\n 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in\n 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The\n first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`,
+                            
+                            img:"assets/paso3/hijo/ceIco-sim1.png"
+                        }
+                    ],
+                    form:{
+                        input_check_one:"Autorizo el tratamiento de mis datos personales",
+                        input_check_two:"Autorizo el tratamiento de mis datos personales",
+                    },
+                    footer:null
+                },
+                
+            ],
+    },
+    bodyEnd:{
+        id:2,
+        title:"Has finalizado tu proceso exitosamente",
+        img:"",
+        text:null,
+        button_next:null,
+        button_return:null,
+        button_end:null,
+        card:[
+                {
+                    stepper:1,
+                    title:"Bienvenido a tu nuevo Servicio de Claro",
+                    text:`Enviaremos a tu correo electrónico una copia del contrato que acabas\n de diligenciar y los pasos a seguir para la activación de tu plan.`,
+                    options:null,
+                    form:{
+                        button_return:"Volver a Inicio"
+                    },
+                    footer:null
+                },
+                
+            ],
+    }
+}

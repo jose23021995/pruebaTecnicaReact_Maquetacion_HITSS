@@ -1,0 +1,43 @@
+// 🎨 BASE
+$color-background-main: #DBDBDB; // Fondo general
+
+// 📦 COMPONENTE PADRE
+$color-parent-bg: #FFFFFF; // Fondo cuando está seleccionado
+$color-parent-header-bg: #484848; // Fondo del header/título
+$color-parent-text: #F4F4F4; // Texto principal
+
+// 🔘 BOTONES
+$color-btn-primary-bg: #DA291C;
+$color-btn-primary-text: #FFFFFF;
+
+$color-btn-secondary-bg: #3C3C3C;
+$color-btn-secondary-text: #FFFFFF;
+
+// 🧩 COMPONENTE HIJO (OPCIONES)
+$color-option-bg: #DDDDDD;
+$color-option-border: #F8F8F8;
+
+$color-option-selected-bg: #D7EDEF;
+$color-option-selected-border: #D7EDEF;
+
+// 🎯 INPUTS / RADIO
+$color-radio-active: #006B4F;
+
+$color-option-text: #3C3C3C;
+$color-option-link: #0097A9;
+
+// 🔢 STEPPER
+$color-stepper-active: #006B4F;
+$color-stepper-disabled-bg: #FFFFFF;
+$color-stepper-disabled-border: #D9D9D9;
+
+
+
+#root {
+  width: 100% !important; 
+  border-inline:none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: $color-background-main;
+}
