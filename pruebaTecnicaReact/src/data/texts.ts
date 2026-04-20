@@ -1,6 +1,59 @@
+// 1. Opciones dentro de cada tarjeta
+interface StepperOption {
+    id: number;
+    title: string;
+    subtitle: string | null;
+    text: string;
+    img: string | null;
+}
 
-export const Stepper={
-    bodyStepper:{
+// 2. Estructura flexible para los formularios (pasos 2 y 4)
+interface StepperForm {
+    input_nombre?: string;
+    input_celular?: string;
+    input_tipodocumento?: string;
+    numerodocumento?: string;
+    input_email?: string;
+    input_date_fechanacimiento?: string;
+    titleDomicilio?: string;
+    input_residencia?: string;
+    input_ciudad?: string;
+    input_departamento?: string;
+    input_barrio?: string;
+    input_operador?: string;
+    input_entidad?: string;
+}
+
+// 3. Cada paso individual dentro del arreglo 'card'
+interface StepperCard {
+    stepper: number;
+    title: string;
+    text: string;
+    options: StepperOption[] | null;
+    form?: any | null;
+    footer: string | null;
+}
+
+// 4. Estructura de cada objeto dentro de 'body'
+interface StepperBody {
+    id: number;
+    title: string;
+    img: string | null;
+    text: string|null;
+    button_next: string|null;
+    button_return: string|null;
+    button_end: string|null;
+    card: StepperCard[];
+}
+
+// 5. Interfaz principal para el export
+export interface IStepper {
+    body: StepperBody[];
+}
+
+export const Stepper:IStepper ={
+    body:[
+        {
         id:1,
         title:"Tecnología para tu Empresa",
         img:null,
@@ -126,8 +179,8 @@ export const Stepper={
                 },
                 
             ],
-    },
-    bodyEnd:{
+        },
+        {
         id:2,
         title:"Has finalizado tu proceso exitosamente",
         img:"",
@@ -148,5 +201,8 @@ export const Stepper={
                 },
                 
             ],
-    }
+        }
+
+    ]
+    
 }
