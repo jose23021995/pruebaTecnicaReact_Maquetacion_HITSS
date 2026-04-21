@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Steppers />} />
-        <Route path="/steppers_end" element={<SteppersEnd />} />
+        <Route path="/final" element={<SteppersEnd />} />
       </Routes>
     </BrowserRouter>
   );
