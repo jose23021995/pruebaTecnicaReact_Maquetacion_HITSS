@@ -1,18 +1,29 @@
-//import { StepperData } from '../data/texts';
+import { Stepper } from '../data/texts';
+
 const Steppers = () => {
+  const step = Stepper.body?.[0];
+  if (!step) return <div>No hay data</div>;
+  const {
+    title,
+    text,
+    button_next,
+    button_return,
+    button_end
+  } = step;
+
   return (
     <div id="container">
-      <h1>s</h1>
-      <p>s</p>
+      <h1>{title}</h1>
+      <p>{text}</p>
 
       <section id="container-main-stepper">
         <section id="right-section"></section>
         <section id="left-section"></section>
       </section>
 
-      <button>Siguiente</button>
-      <button>Regresar</button>
-      <button>Finalizar</button>
+      <button>{button_next}</button>
+      <button>{button_return}</button>
+      <button>{button_end}</button>
     </div>
   );
 };
