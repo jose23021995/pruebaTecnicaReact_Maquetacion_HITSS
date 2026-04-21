@@ -2,15 +2,16 @@ import { useState } from 'react';
 import '../../styles/stepp1.scss';
 
 // 1. Agregamos onDataChange a las props
-const Stepp1and3 = ({ card, onDataChange }) => { 
-  const{stepper}=card;
-  const [selectedId, setSelectedId] = useState(null);
+const Stepp1and3 = ({ card, onDataChange, savedData }) => { 
+  const { stepper } = card;
+  
+  // Inicializamos el estado con el id que viene en savedData (si existe)
+  const [selectedId, setSelectedId] = useState(savedData?.id || null);
   
   if (!card) return null;
 
   const handleSelect = (id) => {
     setSelectedId(id);
-    // Verificamos que onDataChange exista antes de llamarla
     if (onDataChange) {
       const dataToSend = {
         id: id,

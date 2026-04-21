@@ -49,6 +49,8 @@ const Steppers = () => {
   }
 };
 
+const savedData = SaveStepper.find(item => item.stepper === currentStepper);
+
 
   return (
     <div id="container">
@@ -67,9 +69,9 @@ const Steppers = () => {
           </div>
         </section>
         <section id="left-section">
-          {currentStepper === 1 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange}/>}
+          {currentStepper === 1 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
           {currentStepper === 2 && <Stepp2 card={currentCard} />}
-          {currentStepper === 3 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange}/>}
+          {currentStepper === 3 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
           {currentStepper === 4 && <Stepp4 card={currentCard} />}
           {currentStepper === 5 && <Stepp5 card={currentCard} />}
         </section>
