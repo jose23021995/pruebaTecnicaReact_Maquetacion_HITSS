@@ -47,6 +47,7 @@
   width: 100%;
   min-height: 75%;
   border-radius: $border-radius;
+  display: flex;
 }
 
 
@@ -84,6 +85,15 @@
   color: $color-parent-text;
 }
 
+#left-section{
+  width: 70%;
+  height: 100%;
+  background: $color-parent-bg;
+  border-radius: 0px $border-radius $border-radius 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .stepped-progress{
   display: flex !important;
   flex-direction: row !important;

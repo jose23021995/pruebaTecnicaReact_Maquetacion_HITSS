@@ -1,25 +1,34 @@
+import { useState } from 'react'; // 1. Importar el Hook
 import { Stepper } from '../data/texts';
 import RightSection from '../components/RightSection';
 import StepperProgress from '../components/StepperProgress';
-
+import Stepp1and3 from '../components/stepps/Stepp1and3';
 const Steppers = () => {
   const step = Stepper.body?.[0];
-  if (!step) return <div>No hay data</div>;
-  const {
-    title,
-    text,
-    button_next,
-    button_return,
-    button_end
-  } = step;
+  
+  // 2. Usar estado para que React reaccione al cambio
+  const [stepperId, setStepperId] = useState(0); 
+  const totalSteppers = 5;
 
-  let currentStepper = 1;
-  let totalSteppers = 5;
-  let stepper_id = 0
-  ;
-  const currentCard = step.card[stepper_id];
+  if (!step) return <div>No hay data</div>;
+
+  const { title, text, button_next, button_return,button_end } = step;
+
+  // 3. Variables calculadas basadas en el estado
+  const currentStepper = stepperId + 1;
+  const currentCard = step.card[stepperId];
   
-  
+  const handleNext = () => {
+    // Verificamos que no se pase del límite
+    if (stepperId < totalSteppers - 1) {
+      setStepperId(stepperId + 1); // Actualiza el estado y refresca la UI
+    }
+  };
+  // puede redireccionar hacia /final
+  const handleFinish = () => { 
+    window.location.href = '/final';
+  };
+
   return (
     <div id="container">
       <section id='title'>
@@ -28,7 +37,6 @@ const Steppers = () => {
       </section>
       
       <section id="container-main-stepper">
-        
         <section id="right-section">
           <section className="information">
             <RightSection card={currentCard} />
@@ -36,23 +44,37 @@ const Steppers = () => {
           <div className="stepped-progress">
             <StepperProgress total={totalSteppers} current={currentStepper} />
           </div>
-          
-          
         </section>
-        <section id="left-section"></section>
+        <section id="left-section">
+          {currentStepper === 1 && <Stepp1and3 card={currentCard} />}
+          {currentStepper === 3 && <Stepp1and3 card={currentCard} />}
+        </section>
       </section>
       
       <section id="button-container">
-        
-        <button className='return'>{button_return}</button>
-        <button className='next'>{button_next}</button>
-        
-        
+          {/* Aparece solo si NO es el primero */}
+  {stepperId > 0 && (
+    <button className='return' onClick={() => setStepperId(stepperId - 1)}>
+      {button_return}
+    </button>
+  )}
+
+  {/* Aparece solo si NO es el último */}
+  {stepperId < totalSteppers - 1 && (
+    <button className='next' onClick={handleNext}>
+      {button_next}
+    </button>
+  )}
+  
+  {stepperId === totalSteppers - 1 && (
+    <button className='next'  onClick={handleFinish}>
+      {button_end}
+    </button>
+  )}
+
       </section>
-      
     </div>
   );
 };
 
 export default Steppers;
-
