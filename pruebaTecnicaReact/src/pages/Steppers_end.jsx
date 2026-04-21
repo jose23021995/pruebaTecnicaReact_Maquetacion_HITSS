@@ -7,7 +7,6 @@ const SteppersEnd = () => {
     const { title, button_next, button_return,button_end,card,img } = step;
     const currentCard = card[0];
     const { title: cardTitle, text } = currentCard;
-    console.log("Current Card:", currentCard);
     const handleFinish = () => { 
         //alert en forma de pregunta
         if (window.confirm("¿Deseas volver al inicio?\n esta accion borrara tu progreso")) {

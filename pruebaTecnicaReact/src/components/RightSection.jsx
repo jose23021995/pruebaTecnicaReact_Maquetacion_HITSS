@@ -2,7 +2,6 @@ import '../styles/rightSection.scss';
 const RightSection = ({ card }) => {
   if (!card) return null;
 const { title, text, options, form, footer } = card;
-console.log(card);
   return (
         <div id="rightSection-container">
             <div className="image-container">
