@@ -58,7 +58,6 @@ const Steppers = () => {
       // DISPARAMOS EL RE-RENDER: Esto hace que isStepComplete se ejecute de nuevo
       setRefresh(prev => prev + 1);
       
-      console.log(`Paso ${valor.stepper} actualizado:`, SaveStepper[index]);
     }
   };
 

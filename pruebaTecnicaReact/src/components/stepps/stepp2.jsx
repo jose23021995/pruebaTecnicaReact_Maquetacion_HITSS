@@ -24,7 +24,6 @@ const Stepp2 = ({ card, onDataChange, savedData }) => {
 
   // Función genérica para manejar cualquier cambio y avisar al padre
   const handleChange = (e) => {
-    console.log(e);
     const { name, value } = e.target;
     
     const updatedData = {
@@ -33,7 +32,6 @@ const Stepp2 = ({ card, onDataChange, savedData }) => {
     };
 
     // Imprime el objeto completo cada vez que tecleas
-    console.log("Objeto actualizado enviado al padre:", updatedData);
 
     setFormData(updatedData);
 
