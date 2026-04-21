@@ -67,8 +67,8 @@ const Steppers = () => {
   return (
     <div id="container">
       <section id='title'>
-        <h1>{title}</h1>
-        <p>{text}</p>
+        <h1 className='titlePrincipal'>{title}</h1>
+        <p className='subtitlePrincipal'>{text}</p>
       </section>
       
       <section id="container-main-stepper">

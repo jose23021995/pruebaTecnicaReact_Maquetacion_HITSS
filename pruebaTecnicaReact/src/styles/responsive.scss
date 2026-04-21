@@ -1,0 +1,79 @@
+@use './variables' as *;
+
+// ... (tus mixins aquí) ...
+
+#rightSection-container {
+  // Estilos base
+  p.texto { display: block; }
+@media (max-width: 650px) {
+    p.texto  {
+      display: none !important;
+    }
+    h2{
+        font-size: 3.5vw; 
+    }
+  }
+
+}
+#container-main-stepper {
+    #right-section{
+
+        @media (max-width: 1326px) {
+            .stepped-progress{
+            display: none !important;
+         }
+        }
+        
+
+        }
+    }
+#left-section {
+    .opcion-container{
+        .option-card {
+            .text{
+            b,p{
+                @media (max-width: 1330px) {
+                    display: none !important;
+                }
+            }
+            p{
+                @media (max-width: 1330px) {
+                        font-size: clamp(12px, 1.5vw, 14px) !important;
+                }
+            }
+            h3{
+                @media (max-width: 650px) {
+                    font-size: clamp(1rem, 3.5vw, 1.17em) !important;
+                        font-weight: 200 !important;
+                }
+                    
+            }
+
+            }
+            
+        }
+    }
+}
+
+
+
+
+#container{
+    #title{
+        .subtitlePrincipal{
+            @media (max-width: 500px) {
+                display: none !important;
+            }
+        }
+        .titlePrincipal{
+            @media (max-width: 500px) {
+                font-size: clamp(24px, 5vw, 36px) !important;
+            }
+        }
+    }
+}
+.opcion-container .option-card .img img{
+    @media (max-width: 650px) {
+        display: none !important;
+    }
+}

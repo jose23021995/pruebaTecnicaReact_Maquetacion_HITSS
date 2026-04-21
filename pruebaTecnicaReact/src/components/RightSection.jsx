@@ -10,7 +10,7 @@ console.log(card);
             </div>
             <p>Paso {card.stepper}</p>
             <h2>{card.title}</h2>
-            <p>{card.text}</p>    
+            <p className='texto'>{card.text}</p>    
         </div>
   );
 };
