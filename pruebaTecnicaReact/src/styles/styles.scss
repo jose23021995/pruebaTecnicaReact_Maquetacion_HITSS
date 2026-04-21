@@ -74,3 +74,40 @@
   color: $color-btn-primary-text;
 }
 
+//contenedor para los componentes del stepper
+
+#right-section{
+  width: 30%;
+  height: 100%;
+  border-radius: $border-radius 0px 0px $border-radius;
+  background: $color-parent-header-bg;
+  color: $color-parent-text;
+}
+
+.stepped-progress{
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 0px !important;
+}
+
+#right-section div {
+  display: flex;
+  flex-direction: row; /* Esto los pone uno al lado del otro */
+  justify-content:flex-start; /* O flex-start, space-between, etc. */
+  padding: 0px !important;
+}
+
+.information{
+    padding: 30px 30px 20px 30px;
+}
+
+.stepped-progress{
+    margin-left: 30px
+}
+
+#right-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+    

@@ -1,0 +1,36 @@
+@use './variables' as *;
+.stepper {
+  display: flex;
+  align-items: center;
+}
+
+.stepper__item {
+  display: flex;
+  align-items: center;
+}
+
+/* línea */
+.stepper__line {
+  width: 40px;
+  height: 2px;
+  background: #ccc;
+}
+
+.stepper__line.active {
+  background: #ccc !important; 
+}
+
+/* círculo */
+.stepper__circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: $color-stepper-disabled-bg;
+  border: 3px solid $color-stepper-disabled-border;
+}
+
+.stepper__circle.active {
+  background: $color-stepper-active !important; 
+  border-color: $color-stepper-disabled-border !important;
+}
+

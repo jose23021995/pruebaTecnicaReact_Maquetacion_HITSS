@@ -1,3 +1,5 @@
+import '../styles/stepperProgress.scss';
+
 const StepperProgress = ({ total = 5, current = 1 }) => {
   return (
     <div className="stepper">

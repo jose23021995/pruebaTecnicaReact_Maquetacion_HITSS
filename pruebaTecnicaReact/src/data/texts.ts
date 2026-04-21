@@ -67,7 +67,7 @@ export const Stepper:IStepper ={
                     stepper:1,
                     title:"Plan Asignado",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
-                    img:"assets/paso1/shopping-bag.png",
+                    img:"/assets/paso1/shopping-bag.png",
                     options:[
                         {
                             id:1,
@@ -99,7 +99,7 @@ export const Stepper:IStepper ={
                     title:"Datos Personales",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
                     options:null,
-                    img:"",
+                    img:"/assets/paso2/archive.png",
                     form:{
                         input_nombre:"Nombre",
                         input_celular:"Número de Celular",
