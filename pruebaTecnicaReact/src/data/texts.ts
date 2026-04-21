@@ -59,8 +59,8 @@ export const Stepper:IStepper ={
         title:"Tecnología para tu Empresa",
         img:null,
         text:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature\n from 45 BC, making it over 2000 years old.",
-        button_next:"Regresar",
-        button_return:"Siguiente",
+        button_next:"Siguiente",
+        button_return:"Regresar",
         button_end:"Finalizar",
         card:[
                 {
