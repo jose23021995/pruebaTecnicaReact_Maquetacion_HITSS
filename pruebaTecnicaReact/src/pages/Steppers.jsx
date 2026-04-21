@@ -13,8 +13,13 @@ const Steppers = () => {
     button_end
   } = step;
 
-  const currentCard = step.card[0];
-  //
+  let currentStepper = 1;
+  let totalSteppers = 5;
+  let stepper_id = 0
+  ;
+  const currentCard = step.card[stepper_id];
+  
+  
   return (
     <div id="container">
       <section id='title'>
@@ -29,7 +34,7 @@ const Steppers = () => {
             <RightSection card={currentCard} />
           </section>
           <div className="stepped-progress">
-            <StepperProgress total={5} current={1} />
+            <StepperProgress total={totalSteppers} current={currentStepper} />
           </div>
           
           
