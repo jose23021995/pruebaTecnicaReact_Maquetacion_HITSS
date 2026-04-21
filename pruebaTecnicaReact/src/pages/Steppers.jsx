@@ -1,4 +1,4 @@
-import { useState } from 'react'; // 1. Importar el Hook
+import { useState } from 'react'; 
 import { Stepper } from '../data/texts';
 import { SaveStepper } from '../data/steps';
 import RightSection from '../components/RightSection';
@@ -11,46 +11,58 @@ import Stepp5 from '../components/stepps/Step5';
 const Steppers = () => {
   const step = Stepper.body?.[0];
   
-  // 2. Usar estado para que React reaccione al cambio
+  // Estado para el control de la navegación
   const [stepperId, setStepperId] = useState(0); 
+  // Estado disparador para forzar el re-render y desbloquear botones
+  const [refresh, setRefresh] = useState(0);
+  
   const totalSteppers = 5;
 
   if (!step) return <div>No hay data</div>;
 
-  const { title, text, button_next, button_return,button_end } = step;
+  const { title, text, button_next, button_return, button_end } = step;
 
-  // 3. Variables calculadas basadas en el estado
   const currentStepper = stepperId + 1;
   const currentCard = step.card[stepperId];
   
+  // Lógica para validar si el paso actual tiene todos los campos llenos
+  const isStepComplete = () => {
+    const currentSaved = SaveStepper.find(item => item.stepper === currentStepper);
+    if (!currentSaved) return false;
+
+    // Filtramos el 'stepper' y revisamos que el resto no sea null ni vacío
+    const values = Object.entries(currentSaved)
+      .filter(([key]) => key !== 'stepper')
+      .map(([_, value]) => value);
+
+    return values.every(value => value !== null && value !== "");
+  };
+
   const handleNext = () => {
-    // Verificamos que no se pase del límite
     if (stepperId < totalSteppers - 1) {
-      setStepperId(stepperId + 1); // Actualiza el estado y refresca la UI
+      setStepperId(stepperId + 1);
     }
   };
-  // puede redireccionar hacia /final
+
   const handleFinish = () => { 
     window.location.href = '/final';
   };
 
   const handleDataChange = (nombre, valor) => {
-  // valor = { stepper: 1, id: 2 }
+    const index = SaveStepper.findIndex(item => item.stepper === valor.stepper);
 
-  // 1. Buscamos la posición del objeto que coincida con el stepper
-  const index = SaveStepper.findIndex(item => item.stepper === valor.stepper);
+    if (index !== -1) {
+      // Actualizamos el objeto en el archivo externo
+      SaveStepper[index] = valor;
+      
+      // DISPARAMOS EL RE-RENDER: Esto hace que isStepComplete se ejecute de nuevo
+      setRefresh(prev => prev + 1);
+      
+      console.log(`Paso ${valor.stepper} actualizado:`, SaveStepper[index]);
+    }
+  };
 
-  if (index !== -1) {
-    // 2. Sustituimos el objeto completo en esa posición
-    SaveStepper[index] = valor;
-    
-    console.log(`Posición ${index} actualizada:`, SaveStepper[index]);
-    console.log(`Posición allactualizada:`, SaveStepper);
-  }
-};
-
-const savedData = SaveStepper.find(item => item.stepper === currentStepper);
-
+  const savedData = SaveStepper.find(item => item.stepper === currentStepper);
 
   return (
     <div id="container">
@@ -68,36 +80,45 @@ const savedData = SaveStepper.find(item => item.stepper === currentStepper);
             <StepperProgress total={totalSteppers} current={currentStepper} />
           </div>
         </section>
+        
         <section id="left-section">
           {currentStepper === 1 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
-          {currentStepper === 2 && <Stepp2 card={currentCard} />}
+          {currentStepper === 2 && <Stepp2 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
           {currentStepper === 3 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
-          {currentStepper === 4 && <Stepp4 card={currentCard} />}
-          {currentStepper === 5 && <Stepp5 card={currentCard} />}
+          {currentStepper === 4 && <Stepp4 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
+          {currentStepper === 5 && <Stepp5 card={currentCard} onDataChange={handleDataChange} savedData={savedData}/>}
         </section>
       </section>
       
       <section id="button-container">
-          {/* Aparece solo si NO es el primero */}
-  {stepperId > 0 && (
-    <button className='return' onClick={() => setStepperId(stepperId - 1)}>
-      {button_return}
-    </button>
-  )}
+        {/* Botón Volver */}
+        {stepperId > 0 && (
+          <button className='return' onClick={() => setStepperId(stepperId - 1)}>
+            {button_return}
+          </button>
+        )}
 
-  {/* Aparece solo si NO es el último */}
-  {stepperId < totalSteppers - 1 && (
-    <button className='next' onClick={handleNext}>
-      {button_next}
-    </button>
-  )}
-  
-  {stepperId === totalSteppers - 1 && (
-    <button className='next'  onClick={handleFinish}>
-      {button_end}
-    </button>
-  )}
-
+        {/* Botón Siguiente */}
+        {stepperId < totalSteppers - 1 && (
+          <button 
+            className={`next ${!isStepComplete() ? 'disabled' : ''}`} 
+            onClick={handleNext}
+            disabled={!isStepComplete()}
+          >
+            {button_next}
+          </button>
+        )}
+        
+        {/* Botón Finalizar */}
+        {stepperId === totalSteppers - 1 && (
+          <button 
+            className={`next ${!isStepComplete() ? 'disabled' : ''}`} 
+            onClick={handleFinish}
+            disabled={!isStepComplete()}
+          >
+            {button_end}
+          </button>
+        )}
       </section>
     </div>
   );
