@@ -1,6 +1,6 @@
 import { useState } from 'react'; // Importante
 import '../../styles/stepp2.scss';
-
+import { TipoDepartamento, TipoDomicilio } from '../../data/options';
 const Stepp2 = ({ card }) => {
   const [selectedId, setSelectedId] = useState(null); // Estado para el ID
 
@@ -25,9 +25,12 @@ const Stepp2 = ({ card }) => {
       <div className="select-wrapper">
     <select name="tipo-documento" id="tipo-documento">
       <option value="">Seleccione una opción</option>
-      <option value="cc">Cédula de Ciudadanía</option>
-      <option value="ce">Cédula de Extranjería</option>
-      <option value="pasaporte">Pasaporte</option>
+      {/* Función de iteración directa */}
+                {TipoDomicilio.map((opt) => (
+                  <option key={opt.value} value={opt.text.split(' ').pop()}>
+                    {opt.text}
+                  </option>
+                ))}
     </select>
   </div>
     </div>
@@ -66,7 +69,13 @@ const Stepp2 = ({ card }) => {
       <label>Departamento</label>
       <div className="select-wrapper">
         <select>
-          <option>Lorem Ipsum is simply</option>
+          <option value="">Seleccione una opción</option>
+      {/* Función de iteración directa */}
+                {TipoDepartamento.map((opt) => (
+                  <option key={opt.value} value={opt.text.split(' ').pop()}>
+                    {opt.text}
+                  </option>
+                ))}
         </select>
       </div>
     </div>
