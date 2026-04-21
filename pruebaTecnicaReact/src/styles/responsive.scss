@@ -77,3 +77,25 @@
         display: none !important;
     }
 }
+.opcion-container-text p{
+    @media (max-width: 1170px) {
+        display:none !important;
+    }
+}
+section .checks div{
+    @media (max-width: 900px) {
+        margin-bottom: 20px;
+    }
+}
+
+#steppers-end .container .card{
+    @media (max-width: 354px) {
+        width: 50% !important;
+        button{
+            width: 100% !important;
+        }
+        p{
+            display: none !important;
+        }
+    }
+}
