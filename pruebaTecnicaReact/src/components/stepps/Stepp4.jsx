@@ -57,6 +57,7 @@ const Stepp4 = ({ card, onDataChange, savedData }) => {
         <div className="form-group">
           <label>{input_celular}</label>
           <input 
+            id='numeroTelefono'
             type="tel" 
             name="numero" 
             placeholder="44 5678 1234" 

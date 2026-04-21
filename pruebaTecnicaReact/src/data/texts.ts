@@ -59,8 +59,8 @@ export const Stepper:IStepper ={
         title:"Tecnología para tu Empresa",
         img:null,
         text:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature\n from 45 BC, making it over 2000 years old.",
-        button_next:"Siguiente",
-        button_return:"Regresar",
+        button_next:"Regresar",
+        button_return:"Siguiente",
         button_end:"Finalizar",
         card:[
                 {
@@ -73,21 +73,21 @@ export const Stepper:IStepper ={
                             id:1,
                             title:"28506 - Plan Conect Star EMP 35GB FIN",
                             subtitle:"incluye:",
-                            text:`It is a long established fact that a reader will be distracted by the readable content of a\n page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-\nless normal distribution of letters, as opposed to using 'Content here, content here',\n making it look like readable English.`,
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.`,
                             img:null
                         },
                         {
                             id:2,
                             title:"28506 - Plan Conect Star EMP 35GB FIN",
                             subtitle:"incluye:",
-                            text:`It is a long established fact that a reader will be distracted by the readable content of a\n page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-\nless normal distribution of letters, as opposed to using 'Content here, content here',\n making it look like readable English.`,
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.`,
                             img:null
                         },
                         {
                             id:3,
                             title:"28506 - Plan Conect Star EMP 35GB FIN",
                             subtitle:"incluye:",
-                            text:`It is a long established fact that a reader will be distracted by the readable content of a\n page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-\nless normal distribution of letters, as opposed to using 'Content here, content here',\n making it look like readable English.`,
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.`,
                             img:null
                         }
                     ],
@@ -164,17 +164,17 @@ export const Stepper:IStepper ={
                     stepper:5,
                     title:"Aceptación de Términos",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
-                    img:"/assets/paso5/file-text.png",
+                    img:"",
                     options:[
                         {
                             id:1,
                             title:"Lorem Ipsum is not simply",
                             subtitle:null,
-                            text:`It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of <a href="">using Lorem Ipsum</a> is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. \n
-                            <b>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The <a href="">generated Lorem Ipsum</a> is therefore always free from repetition, injected humour, or non-characteristic words etc.</b>\n
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`,
+                            text:`It is a long established fact that a reader will be distracted by the readable content of a page when\n looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal\n distribution of letters, as opposed to using 'Content here, content here', making it look like readable\n English. \n\n
+                            <b>There are many variations of passages of Lorem Ipsum available, but the majority have suffered\n alteration in some form, by injected humour, or randomised words which don't look even slightly\n believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't\n anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet\n tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.\n It uses a dictionary of over 200 Latin words, combined with a handful of model sentence\n structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is\n therefore always free from repetition, injected humour, or non-characteristic words etc.</b>
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin\n professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,\n consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical\n literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and\n 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in\n 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The\n first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`,
                             
-                            img:null
+                            img:"/assets/paso5/file-text.png"
                         }
                     ],
                     form:{

@@ -1,29 +1,55 @@
 @use './variables' as *;
+
+// Mixin inteligente: no usa anchos fijos
 @mixin borderInput {
-  border-radius: 34px;
-  width: 600px;
-  height: 40px;
+  border-radius: 34px !important;
+  width: 100% !important; // Ocupa el ancho del contenedor padre
+  max-width: 400px !important; // Pero no estira más de esto en PC
+  height: 40px !important;
+  border: 1px solid #ccc !important;
+  padding: 0 15px !important;
+  box-sizing: border-box !important;
+  background-color: white !important;
+  outline: none !important;
 }
-#form-container{
-    form{
-       div{
-        gap: 20px;
-        text-align: left;
-         display: flex !important;
-            flex-direction: column !important;
-            gap: 10px;
-            select{
-                @include borderInput;
-            }
-       }
-       .input-celular{
-        
-        label{
-            text-align: left;
-        }
-               input{
-                    @include borderInput;
-               }
-       }
+
+#form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+
+  form {
+    width: 100%;
+    max-width: 500px; // Contenedor del formulario
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Centra los grupos de input
+    gap: 15px;
+
+    .form-group {
+      width: 100%;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start; // Alinea label e input a la izquierda del grupo
+      
+      label {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 5px;
+        margin-left: 15px; // Alineado con la curva del input
+      }
+
+      select, input {
+        @include borderInput;
+      }
+      
+      // Ajuste específico para el ID que creaste
+      #numeroTelefono {
+        @include borderInput;
+      }
     }
+  }
 }
+
+// Media query para cuando el espacio se reduce (cerca de esos 831px)

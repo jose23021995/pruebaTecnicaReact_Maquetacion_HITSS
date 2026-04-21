@@ -5,7 +5,7 @@
 #rightSection-container {
   // Estilos base
   p.texto { display: block; }
-@media (max-width: 650px) {
+@media (max-width: 730px) {
     p.texto  {
       display: none !important;
     }
@@ -96,6 +96,81 @@ section .checks div{
         }
         p{
             display: none !important;
+        }
+    }
+}
+.form-grid{
+    @media (max-width: 1000px) {
+        display: flex !important;
+        flex-direction: column !important;
+        width: auto;
+        height:400px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 1000px) {
+        .form-grid {
+  // 1. Forzamos la disposición vertical
+  display: flex !important;
+  flex-direction: column !important;
+  
+  // 2. Definimos el límite de altura para activar el scroll
+  max-height: 400px; 
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  
+  // 3. Espaciado interno para evitar que los inputs toquen los bordes
+  padding-right: 15px; 
+  gap: 20px;
+
+  // 4. Estilo de la barra de scroll vertical
+  &::-webkit-scrollbar {
+    width: 6px; // Barra lateral
+    display: block !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+}
+
+}
+@media (max-width: 850px) {
+  #form-container {
+    padding: 0 10px;
+    
+    form {
+      .form-group {
+        align-items: center; // En tablets/móviles se ve mejor centrado
+        
+        label {
+          margin-left: 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+  #idOperador,#numeroTelefono,#idEntidad{
+    max-width: 150px !important;
+    width: 150px;
+  }
+}
+
+@media (max-width: 481px) {
+    #container #button-container{
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        button{
+        margin-bottom: 20px;
         }
     }
 }

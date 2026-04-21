@@ -135,3 +135,30 @@ h2{
       display: flex;
 }
 
+#container #button-container {
+  width: 100%;
+  display: flex; // Ya no necesitas el mixin de columna aquí
+  flex-direction: row;
+  justify-content: space-between; 
+  align-items: center;
+
+  .next {
+    background-color: $color-btn-primary-bg;
+    color: $color-btn-primary-text;
+    // CLAVE: Si es el único hijo, esto lo empuja a la derecha
+    margin-left: auto; 
+
+    &.disabled {
+      background-color: #ccc !important;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  .return {
+    background-color: $color-btn-secondary-bg;
+    color: $color-btn-primary-text;
+    // Esto asegura que el botón "Regresar" siempre esté a la izquierda
+    margin-right: auto; 
+  }
+}
