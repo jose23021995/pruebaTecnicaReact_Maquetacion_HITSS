@@ -1,5 +1,6 @@
 import { useState } from 'react'; // 1. Importar el Hook
 import { Stepper } from '../data/texts';
+import { SaveStepper } from '../data/steps';
 import RightSection from '../components/RightSection';
 import StepperProgress from '../components/StepperProgress';
 import Stepp2 from '../components/stepps/Stepp2';
@@ -33,6 +34,22 @@ const Steppers = () => {
     window.location.href = '/final';
   };
 
+  const handleDataChange = (nombre, valor) => {
+  // valor = { stepper: 1, id: 2 }
+
+  // 1. Buscamos la posición del objeto que coincida con el stepper
+  const index = SaveStepper.findIndex(item => item.stepper === valor.stepper);
+
+  if (index !== -1) {
+    // 2. Sustituimos el objeto completo en esa posición
+    SaveStepper[index] = valor;
+    
+    console.log(`Posición ${index} actualizada:`, SaveStepper[index]);
+    console.log(`Posición allactualizada:`, SaveStepper);
+  }
+};
+
+
   return (
     <div id="container">
       <section id='title'>
@@ -50,9 +67,9 @@ const Steppers = () => {
           </div>
         </section>
         <section id="left-section">
-          {currentStepper === 1 && <Stepp1and3 card={currentCard} />}
+          {currentStepper === 1 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange}/>}
           {currentStepper === 2 && <Stepp2 card={currentCard} />}
-          {currentStepper === 3 && <Stepp1and3 card={currentCard} />}
+          {currentStepper === 3 && <Stepp1and3 card={currentCard} onDataChange={handleDataChange}/>}
           {currentStepper === 4 && <Stepp4 card={currentCard} />}
           {currentStepper === 5 && <Stepp5 card={currentCard} />}
         </section>

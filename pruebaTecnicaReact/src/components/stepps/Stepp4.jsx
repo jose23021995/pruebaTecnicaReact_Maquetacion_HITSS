@@ -22,7 +22,7 @@ const Stepp4 = ({card}) => {
       </div>
 
       {/* Número de Celular */}
-      <div>
+      <div className="input-celular">
         <label>{input_celular}</label>
         <input 
           type="tel" 
@@ -43,8 +43,6 @@ const Stepp4 = ({card}) => {
           ))}
         </select>
       </div>
-
-      <button type="button">Continuar</button>
     </form>
     </div>
   );

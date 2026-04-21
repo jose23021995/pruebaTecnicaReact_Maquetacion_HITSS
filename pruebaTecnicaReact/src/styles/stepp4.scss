@@ -1,1 +1,29 @@
 @use './variables' as *;
+@mixin borderInput {
+  border-radius: 34px;
+  width: 600px;
+  height: 40px;
+}
+#form-container{
+    form{
+       div{
+        gap: 20px;
+        text-align: left;
+         display: flex !important;
+            flex-direction: column !important;
+            gap: 10px;
+            select{
+                @include borderInput;
+            }
+       }
+       .input-celular{
+        
+        label{
+            text-align: left;
+        }
+               input{
+                    @include borderInput;
+               }
+       }
+    }
+}
