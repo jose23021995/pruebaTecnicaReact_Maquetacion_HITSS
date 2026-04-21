@@ -1,0 +1,43 @@
+@use './variables' as *;
+
+.opcion-container-text {
+  width: 100%;
+  max-width: 800px; // O el ancho de tu diseño
+  padding: 20px;
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  p{
+    font-size: 10px !important;
+  }
+  h3{
+    text-align: left;
+  }
+
+  .formatted-text {
+    line-height: 1.6;   // Da aire entre líneas para que sea legible
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+    word-wrap: break-word; // Evita que palabras largas rompan el layout
+    
+
+    b {
+      font-weight: bold;
+      color: #000;
+    }
+
+    br {
+      display: block;
+      content: "";
+      margin-top: 10px; // Espacio extra en cada salto si quieres
+    }
+  }
+}
+.opcion-container-text p,label {
+  font-size: 13px !important;
+}
+section .checks {
+    text-align: left !important;
+}

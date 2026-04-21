@@ -120,4 +120,17 @@
     flex-direction: column;
     justify-content: space-around;
 }
+p{
+      white-space: pre-line !important; 
+      text-align: left !important;
+}
+a{
+  color: $color-option-link;
+}
     
+h3{
+  text-align: left !important;
+}
+h2{
+      display: flex;
+}

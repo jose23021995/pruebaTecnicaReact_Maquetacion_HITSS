@@ -3,6 +3,9 @@ import { Stepper } from '../data/texts';
 import RightSection from '../components/RightSection';
 import StepperProgress from '../components/StepperProgress';
 import Stepp1and3 from '../components/stepps/Stepp1and3';
+import Stepp2 from '../components/stepps/Stepp2';
+import Stepp5 from '../components/stepps/Step5'; 
+
 const Steppers = () => {
   const step = Stepper.body?.[0];
   
@@ -47,7 +50,9 @@ const Steppers = () => {
         </section>
         <section id="left-section">
           {currentStepper === 1 && <Stepp1and3 card={currentCard} />}
+          {currentStepper === 2 && <Stepp2 card={currentCard} />}
           {currentStepper === 3 && <Stepp1and3 card={currentCard} />}
+          {currentStepper === 5 && <Stepp5 card={currentCard} />}
         </section>
       </section>
       

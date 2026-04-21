@@ -1,0 +1,53 @@
+@use './variables' as *;
+#steppers-end{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+        align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+#steppers-end .container{
+    width: 80% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}   
+#steppers-end .container .card{
+    background-color: $color-parent-bg;
+    border-radius: 10px;
+    padding: 50px;
+
+}
+
+#steppers-end .container .card h3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+#steppers-end .container .card h3{
+    img{
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
+
+#steppers-end .container .card button{
+    background-color: $color-btn-primary-bg;
+    color: $color-btn-primary-text;
+    width: 250px;
+    height: 40px;
+    border-radius: 40px;
+}
+
+#steppers-end .container h2
+    img{
+        width: 32px !important;
+        height: 32px !important;
+
+    }

@@ -1,0 +1,83 @@
+@use './variables' as *;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // Dos columnas exactas
+  gap: 20px 30px;
+  max-width: 900px;
+  padding: 20px;
+
+  .section-title {
+    grid-column: span 2; // Ocupa todo el ancho
+    font-size: 1.4rem;
+    margin: 15px 0 5px 0;
+    color: #444;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items:baseline;
+
+    label {
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    input,.select-wrapper,.date-wrapper{
+        width: 320px;
+        height: 40px;
+    }
+    input, select {
+      width: 100%;
+      border-radius:10px;
+      border:1px solid #BBBBBB
+
+
+    }
+    .date-wrapper{
+        width: 100% !important;
+    }
+    // Contenedores para iconos (Flechas y Calendario)
+    .select-wrapper, .date-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+
+
+    select {
+      appearance: none; // Quita la flecha por defecto del navegador
+    }
+  }
+}
+
+.select-wrapper {
+    width: 100% !important;
+    height: 45px !important;
+  select {
+    appearance: none; // Quita el estilo por defecto
+    background-color: white; // Asegura fondo blanco para que el texto negro se vea
+    color: #333; // Color del texto
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+
+    /* Estilo para las opciones dentro del desplegable */
+    option {
+      background-color: white;
+      color: #333;
+      padding: 10px;
+    }
+  }
+}
+
+
+.form-container{
+    width: 100%;
+    padding: 10%;
+}
