@@ -1,41 +1,76 @@
-// 🎨 BASE
-$color-background-main: #DBDBDB; // Fondo general
+@use './variables' as *;
 
-// 📦 COMPONENTE PADRE
-$color-parent-bg: #FFFFFF; // Fondo cuando está seleccionado
-$color-parent-header-bg: #484848; // Fondo del header/título
-$color-parent-text: #F4F4F4; // Texto principal
-
-// 🔘 BOTONES
-$color-btn-primary-bg: #DA291C;
-$color-btn-primary-text: #FFFFFF;
-
-$color-btn-secondary-bg: #3C3C3C;
-$color-btn-secondary-text: #FFFFFF;
-
-// 🧩 COMPONENTE HIJO (OPCIONES)
-$color-option-bg: #DDDDDD;
-$color-option-border: #F8F8F8;
-
-$color-option-selected-bg: #D7EDEF;
-$color-option-selected-border: #D7EDEF;
-
-// 🎯 INPUTS / RADIO
-$color-radio-active: #006B4F;
-
-$color-option-text: #3C3C3C;
-$color-option-link: #0097A9;
-
-// 🔢 STEPPER
-$color-stepper-active: #006B4F;
-$color-stepper-disabled-bg: #FFFFFF;
-$color-stepper-disabled-border: #D9D9D9;
-
+@mixin flec-column {
+  display: flex;
+  flex-direction: column;
+}
 
 
 #root {
   width: 100% !important; 
   border-inline:none !important;
-  
+  background-color: $color-background-main;
+}
+
+
+#container {
+  width: 80%;
+  margin: 40px auto;
+  @include flec-column;
+  gap: 20px;
+  height: 90vh;
+  justify-content: center
+}
+
+#container #title{
+  @include flec-column;
+  align-items:start;
+  font-weight: bold;
+}
+
+#container #title h1{
+  text-align: left;
+  font-size: 36px;
+}
+
+#container #title p{
+  font-size: 16px;
+  text-align: left;
+  font-weight: lighter;
+}
+#container #title p,#container #title h1{
+  color: $color-parent-header-bg;
+}
+
+#container #container-main-stepper{
+  background: $color-parent-bg;
+  width: 100%;
+  min-height: 75%;
+  border-radius: $border-radius;
+}
+
+
+
+#container #button-container{
+  width: 100%;
+  @include flec-column;
+  flex-direction: row;
+  justify-content:space-between;
+}
+
+#container #button-container .next, #container #button-container .return{
+  width: 160px;
+  height: 44px;
+  font-size: 16px;
+  border-radius: $border-radius;
+}
+#container #button-container .next{
+  background-color: $color-btn-primary-bg;
+  color: $color-btn-primary-text;
+}
+
+#container #button-container .return{
+  background-color: $color-btn-secondary-bg;
+  color: $color-btn-primary-text;
 }
 

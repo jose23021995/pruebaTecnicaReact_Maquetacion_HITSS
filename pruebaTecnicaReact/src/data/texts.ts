@@ -29,6 +29,7 @@ interface StepperCard {
     stepper: number;
     title: string;
     text: string;
+    img:string;
     options: StepperOption[] | null;
     form?: any | null;
     footer: string | null;
@@ -66,6 +67,7 @@ export const Stepper:IStepper ={
                     stepper:1,
                     title:"Plan Asignado",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
+                    img:"assets/paso1/shopping-bag.png",
                     options:[
                         {
                             id:1,
@@ -97,6 +99,7 @@ export const Stepper:IStepper ={
                     title:"Datos Personales",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
                     options:null,
+                    img:"",
                     form:{
                         input_nombre:"Nombre",
                         input_celular:"Número de Celular",
@@ -117,6 +120,7 @@ export const Stepper:IStepper ={
                     stepper:3,
                     title:"¡Activa a tu familia con\n Bolívar y Claro!",
                     text:"Dependiendo del tipo de línea de tu familiar,\n elige una de las siguientes opciones.",
+                    img:"",
                     options:[
                       {
                             id:1,
@@ -148,6 +152,7 @@ export const Stepper:IStepper ={
                     title:"Portabilidad Claro",
                     text:"Recuerda: si eres usuario de otro operador y\n deseas portar tu número, la línea debe ser a tu\n nombre, estar al día en tus pagos y no puede\n estar suspendida",
                     options:null,
+                    img:"",
                     form:{
                         input_operador:"* Operador actual",
                         input_celular:"* Ingresa tu número de celular actual:",
@@ -159,6 +164,7 @@ export const Stepper:IStepper ={
                     stepper:5,
                     title:"Aceptación de Términos",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
+                    img:"",
                     options:[
                         {
                             id:1,
@@ -194,6 +200,7 @@ export const Stepper:IStepper ={
                     title:"Bienvenido a tu nuevo Servicio de Claro",
                     text:`Enviaremos a tu correo electrónico una copia del contrato que acabas\n de diligenciar y los pasos a seguir para la activación de tu plan.`,
                     options:null,
+                    img:"",
                     form:{
                         button_return:"Volver a Inicio"
                     },
