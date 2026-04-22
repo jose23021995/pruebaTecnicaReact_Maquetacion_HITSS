@@ -1,35 +1,5 @@
 @use './variables' as *;
 
-// ... (tus mixins aquí) ...
-@mixin overflow-flex {
-        // 1. Forzamos la disposición vertical
-  display: flex !important;
-  flex-direction: column !important;
-  
-  // 2. Definimos el límite de altura para activar el scroll
-  max-height: 400px; 
-  overflow-y: auto !important;
-  overflow-x: hidden;
-  
-  // 3. Espaciado interno para evitar que los inputs toquen los bordes
-  padding-right: 15px; 
-  gap: 20px;
-
-  // 4. Estilo de la barra de scroll vertical
-  &::-webkit-scrollbar {
-    width: 6px; // Barra lateral
-    display: block !important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-}
   
 
 #rightSection-container {
@@ -135,51 +105,14 @@ section .checks div{
         }
     }
 }
-.form-grid{
-    @media (max-width: 1000px) {
-        @include overflow-flex;
-    }
-}
 
-@media (max-width: 1000px) {
-        .form-grid {
-  // 1. Forzamos la disposición vertical
-  display: flex !important;
-  flex-direction: column !important;
-  
-  // 2. Definimos el límite de altura para activar el scroll
-  max-height: 400px; 
-  overflow-y: auto !important;
-  overflow-x: hidden;
-  
-  // 3. Espaciado interno para evitar que los inputs toquen los bordes
-  padding-right: 15px; 
-  gap: 20px;
-
-  // 4. Estilo de la barra de scroll vertical
-  &::-webkit-scrollbar {
-    width: 6px; // Barra lateral
-    display: block !important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-}
-
-}
 @media (max-width: 850px) {
   #form-container {
     padding: 0 10px;
     
     form {
       .form-group {
-        align-items: center; // En tablets/móviles se ve mejor centrado
+        align-items: center;
         
         label {
           margin-left: 0;
@@ -223,11 +156,6 @@ section .checks div{
   }
 }
 
-@media screen and (max-width: 1001px), screen and (max-height: 844px) { 
-    .form-grid {
-    @include overflow-flex;
-    }
-}
 
 @media screen and (max-height: 700px) { 
     .form-grid {
@@ -244,3 +172,89 @@ section .checks div{
     }
 }
 
+
+//responsive stepp2
+@mixin overflow-flex {
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 400px; 
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding-right: 15px; 
+  gap: 20px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    display: block !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+}
+
+// Cuando la pantalla es angosta (menos de 1000px)
+.form-grid {
+    @media (max-width: 1000px) {
+        @include overflow-flex;
+    }
+}
+
+// Cuando la pantalla es baja (menos de 844px de altura)
+@media screen and (max-width: 1001px), screen and (max-height: 844px) { 
+    .form-grid {
+        @include overflow-flex;
+    }
+}
+
+// Ajustes extremos de altura (móviles en horizontal o pantallas muy pequeñas)
+@media screen and (max-height: 700px) { 
+    .form-grid {
+        max-height: 300px !important;
+    }
+}
+
+@media screen and (max-height: 600px) { 
+    .form-grid {
+        max-height: 200px !important;
+    }
+}
+
+
+@media (max-width: 1000px) {
+        .form-grid {
+  // 1. Forzamos la disposición vertical
+  display: flex !important;
+  flex-direction: column !important;
+  
+  // 2. Definimos el límite de altura para activar el scroll
+  max-height: 400px; 
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  
+  // 3. Espaciado interno para evitar que los inputs toquen los bordes
+  padding-right: 15px; 
+  gap: 20px;
+
+  // 4. Estilo de la barra de scroll vertical
+  &::-webkit-scrollbar {
+    width: 6px; // Barra lateral
+    display: block !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+}
+
+}
