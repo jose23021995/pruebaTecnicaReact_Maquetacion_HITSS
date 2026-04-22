@@ -9,13 +9,7 @@ const SteppersEnd = () => {
     const { title: cardTitle, text } = currentCard;
     const handleFinish = () => { 
         //alert en forma de pregunta
-        if (window.confirm("¿Deseas volver al inicio?\n esta accion borrara tu progreso")) {
-            window.location.href = '/';
-        }else{
-            alert("¡Gracias por completar el proceso!");
-        }
-
-        
+        window.location.href = '/';
       }
     return (
     <div id="steppers-end">

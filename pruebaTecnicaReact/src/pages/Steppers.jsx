@@ -45,7 +45,10 @@ const Steppers = () => {
   };
 
   const handleFinish = () => { 
-    window.location.href = '/final';
+    if (window.confirm("¿Seguro que quieres finalizar el proceso?\n Después de este punto no hay retorno.")) {
+            window.location.href = '/final';
+        }
+    
   };
 
   const handleDataChange = (nombre, valor) => {
