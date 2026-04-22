@@ -1,83 +1,79 @@
 @use './variables' as *;
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; // Dos columnas exactas
-  gap: 20px 30px;
+
+
+.form-container {
   max-width: 900px;
+  margin: 0 auto;
   padding: 20px;
 
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+    margin-top: 15px;
+  }
+
   .section-title {
-    grid-column: span 2; // Ocupa todo el ancho
-    font-size: 1.4rem;
-    margin: 15px 0 5px 0;
-    color: #444;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $color-text-secondary;
+    margin-bottom: 10px;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    align-items:baseline;
+    gap: 10px;
+    text-align: justify;
 
     label {
-      font-weight: 600;
-      color: #333;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: $color-text-primary;
+      margin-left: 5px;
     }
 
-    input,.select-wrapper,.date-wrapper{
-        width: 320px;
-        height: 40px;
-    }
-    input, select {
-      width: 100%;
-      border-radius:10px;
-      border:1px solid #BBBBBB
+    input,
+    select {
+      padding: 12px 20px;
+      border: 1.5px solid $color-border-default;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      color: $color-text-muted;
+      background-color: $color-bg-primary;
+      transition: all 0.2s ease;
+      outline: none;
 
+      &::placeholder {
+        color: $color-text-placeholder;
+      }
 
-    }
-    .date-wrapper{
-        width: 100% !important;
-    }
-    // Contenedores para iconos (Flechas y Calendario)
-    .select-wrapper, .date-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
+      &:focus {
+        border-color: $color-border-focus;
+      }
 
-
+      &.error {
+        border-color: $color-border-error;
+        background-color: $color-bg-error;
+      }
+    }
 
     select {
-      appearance: none; // Quita la flecha por defecto del navegador
+      appearance: none;
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 15px;
+      padding-right: 40px;
+      cursor: pointer;
     }
   }
-}
-
-.select-wrapper {
-    width: 100% !important;
-    height: 45px !important;
-  select {
-    appearance: none; // Quita el estilo por defecto
-    background-color: white; // Asegura fondo blanco para que el texto negro se vea
-    color: #333; // Color del texto
-    width: 100%;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-
-    /* Estilo para las opciones dentro del desplegable */
-    option {
-      background-color: white;
-      color: #333;
-      padding: 10px;
-    }
-  }
-}
-
-
-.form-container{
-    width: 100%;
-    padding: 10%;
 }

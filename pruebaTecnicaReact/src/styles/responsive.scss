@@ -1,47 +1,23 @@
 @use './variables' as *;
 
-// ... (tus mixins aquí) ...
-@mixin overflow-flex {
-        // 1. Forzamos la disposición vertical
-  display: flex !important;
-  flex-direction: column !important;
-  
-  // 2. Definimos el límite de altura para activar el scroll
-  max-height: 400px; 
-  overflow-y: auto !important;
-  overflow-x: hidden;
-  
-  // 3. Espaciado interno para evitar que los inputs toquen los bordes
-  padding-right: 15px; 
-  gap: 20px;
-
-  // 4. Estilo de la barra de scroll vertical
-  &::-webkit-scrollbar {
-    width: 6px; // Barra lateral
-    display: block !important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-}
   
 
 #rightSection-container {
   // Estilos base
   p.texto { display: block; }
-@media (max-width: 730px) {
+@media (max-width: 850px) {
     p.texto  {
-      display: none !important;
+      font-size: 13px !important;
     }
     h2{
         font-size: 3.5vw; 
     }
+  }
+  @media (max-width: 650px) {
+    p.texto  {
+      font-size: 10px !important;
+    }
+
   }
   @media (max-width: 580px) {
     p.texto  {
@@ -49,38 +25,132 @@
     }
 
   }
-
 }
+
+
 #container-main-stepper {
-    #right-section{
+  #right-section {
 
-        @media (max-width: 1326px) {
-            .stepped-progress{
-            display: none !important;
-         }
-        }
-        
+    .stepped-progress {
 
+      @media (max-width: 1326px) {
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 13px !important;
+          height: 13px !important;
         }
+
+        .stepper__line {
+          width: 30px !important;
+        }
+      }
+
+      @media (max-width: 1103px) {
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 10px !important;
+          height: 10px !important;
+        }
+
+        .stepper__line {
+          width: 15px !important;
+        }
+      }
+
+      @media (max-width: 717px) {
+        margin-left: 20px;
+
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 10px !important;
+          height: 10px !important;
+        }
+
+        .stepper__line {
+          width: 5px !important;
+        }
+      }
+      @media (max-width: 500px) {
+        margin-left: 15px;
+
+      }
+
+      @media (max-width: 470px) {
+        margin-left: 5px;
+
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 8px !important;
+          height: 8px !important;
+        }
+
+        .stepper__line {
+          width: 5px !important;
+        }
+      }
+      @media (max-width: 394px) {
+
+        .stepper__line {
+          width: 0px !important;
+        }
+      }
+      @media (max-width: 314px) {
+
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 5px !important;
+          height: 5px !important;
+        }
+      }
+
     }
+
+  }
+}
 #left-section {
     .opcion-container{
         .option-card {
             .text{
             b,p{
-                @media (max-width: 1330px) {
+                @media (max-width: 1505px) {
+                    // display: none !important;
+                    font-size: 0.6em !important;
+                }
+                 @media (max-width: 1173px) {
+                    // display: none !important;
+                    font-size: 0.5em !important;
+                }
+                @media (max-width: 1173px) {
+                    // display: none !important;
                     display: none !important;
                 }
+                @media (max-height: 740px) {
+                    display: none !important;
+                   
+                }
+                
             }
             p{
                 @media (max-width: 1330px) {
-                        font-size: clamp(12px, 1.5vw, 14px) !important;
+                        
                 }
             }
             h3{
-                @media (max-width: 650px) {
+                @media (max-width: 1505px) {
                     font-size: clamp(1rem, 3.5vw, 1.17em) !important;
                         font-weight: 200 !important;
+                }
+                @media (max-width: 1505px) {
+                    font-size: clamp(1rem, 3.5vw, 1.17em) !important;
+                        font-weight: 200 !important;
+                }
+                @media (max-width: 883px) {
+                    font-size: clamp(1rem, 3.5vw, 1em) !important;
+                        font-weight: 200 !important;
+                }
+                @media (max-height: 824px) {
+                    // display: none !important;
+                    margin:initial !important;
                 }
                     
             }
@@ -90,9 +160,6 @@
         }
     }
 }
-
-
-
 
 #container{
     #title{
@@ -135,11 +202,109 @@ section .checks div{
         }
     }
 }
-.form-grid{
+
+@media (max-width: 850px) {
+  #form-container {
+    padding: 0 10px;
+    
+    form {
+      .form-group {
+        align-items: center;
+        
+        label {
+          margin-left: 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+  #idOperador,#numeroTelefono,#idEntidad{
+    max-width: 150px !important;
+    width: 150px;
+  }
+}
+
+@media (max-width: 481px) {
+    #container #button-container{
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        button{
+        margin-bottom: 20px;
+        }
+    }
+}
+
+
+@media screen and (max-height: 700px) { 
+    .form-grid {
+        max-height: 300px !important;
+    }
+}
+
+@media screen and (max-height: 600px) { 
+    .form-grid {
+        max-height: 200px !important;
+    }
+    #rightSection-container p.texto{
+        display: none !important;
+    }
+}
+
+
+//responsive stepp2
+@mixin overflow-flex {
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: 400px; 
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding-right: 15px; 
+  gap: 20px;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    display: block !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+}
+
+// Cuando la pantalla es angosta (menos de 1000px)
+.form-grid {
     @media (max-width: 1000px) {
         @include overflow-flex;
     }
 }
+
+// Cuando la pantalla es baja (menos de 844px de altura)
+@media screen and (max-width: 1135px), screen and (max-height: 844px) { 
+    .form-grid {
+        @include overflow-flex;
+    }
+}
+
+
+// Ajustes extremos de altura (móviles en horizontal o pantallas muy pequeñas)
+@media screen and (max-height: 700px) { 
+    .form-grid {
+        max-height: 300px !important;
+    }
+}
+
+@media screen and (max-height: 600px) { 
+    .form-grid {
+        max-height: 200px !important;
+    }
+}
+
 
 @media (max-width: 1000px) {
         .form-grid {
@@ -173,74 +338,30 @@ section .checks div{
 }
 
 }
-@media (max-width: 850px) {
-  #form-container {
-    padding: 0 10px;
-    
-    form {
-      .form-group {
-        align-items: center; // En tablets/móviles se ve mejor centrado
-        
-        label {
-          margin-left: 0;
-          text-align: center;
-        }
-      }
+
+@media (max-width: 1134px) {   
+    .form-container .form-group input, .form-container .form-group select{
+        width: 300px !important;
     }
-  }
-  #idOperador,#numeroTelefono,#idEntidad{
-    max-width: 150px !important;
-    width: 150px;
-  }
+
+}
+@media (max-width: 630px) {   
+    .information{
+            padding: 30px 10px 20px 10px !important;
+    }
+
 }
 
-@media (max-width: 481px) {
-    #container #button-container{
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        button{
-        margin-bottom: 20px;
-        }
+@media (max-width: 461px) {   
+    .information{
+            padding: 30px 5px 20px 5px !important;
+    }
+
+}
+
+@media screen and (max-width: 717px), screen and (max-height: 640px) { 
+   p.texto  {
+      font-size: 10px !important;
+      white-space: normal !important;
     }
 }
-
-@media screen and (max-width: 850px), screen and (max-height: 850px) { 
-  .parrado { 
-    display: none !important; 
-  } 
-}
-
-@media screen and (max-width: 850px), screen and (max-height: 850px) { 
-  .parrado { 
-    display: none !important; 
-  } 
-}
-
-@media screen and (max-width: 1357px), screen and (max-height: 728px) { 
-.stepped-progress{
-    display: none !important; 
-  }
-}
-
-@media screen and (max-width: 1001px), screen and (max-height: 844px) { 
-    .form-grid {
-    @include overflow-flex;
-    }
-}
-
-@media screen and (max-height: 700px) { 
-    .form-grid {
-        max-height: 300px !important;
-    }
-}
-
-@media screen and (max-height: 600px) { 
-    .form-grid {
-        max-height: 200px !important;
-    }
-    #rightSection-container p.texto{
-        display: none !important;
-    }
-}
-

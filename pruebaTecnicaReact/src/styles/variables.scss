@@ -8,7 +8,6 @@ $color-parent-text: #F4F4F4; // Texto principal
 $font-size-parent-title: 28px;
 $font-size-parent-text: 16px;
 
-
 // 🔘 BOTONES
 $color-btn-primary-bg: #DA291C;
 $color-btn-primary-text: $color-parent-bg;
@@ -33,9 +32,38 @@ $color-option-link: #0097A9;
 $color-stepper-active: #006B4F;
 $color-stepper-disabled-bg: $color-parent-bg;
 $color-stepper-disabled-border: #D9D9D9;
-// borde de los componentes
+
+// 🔲 BORDER RADIUS
 $border-radius: 25px;
 
-// Definimos los anchos de pantalla
+// 📱 BREAKPOINTS
 $tablet: 768px;
 $mobile: 480px;
+
+// =====================
+// BACKGROUNDS
+// =====================
+$color-bg-primary: #ffffff;
+$color-bg-error: #fffafa;
+
+// =====================
+// TEXT
+// =====================
+$color-text-primary: #666666;
+$color-text-secondary: #707070;
+$color-text-muted: #999999;
+$color-text-placeholder: #cccccc;
+
+// =====================
+// BORDERS
+// =====================
+$color-border-default: #dcdcdc; // ← se deja una sola versión
+$color-border-focus: #b0b0b0;
+$color-border-error: #e74c3c;
+
+//variables stepp 5
+// =====================
+// TEXT EXTRA
+// =====================
+$stepp5-color-text-default: #333333;
+$stepp5-color-text-strong: #000000;
