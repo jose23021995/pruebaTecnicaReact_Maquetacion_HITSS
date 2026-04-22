@@ -58,7 +58,7 @@
 }
 
 .option-card {
-  border: 2px solid #ccc; // Color por defecto
+  border: 2px solid $color-text-placeholder; // Color por defecto
   transition: all 0.3s ease;
   cursor: pointer;
 

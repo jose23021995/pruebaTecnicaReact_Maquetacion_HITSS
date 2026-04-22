@@ -5,13 +5,19 @@
 #rightSection-container {
   // Estilos base
   p.texto { display: block; }
-@media (max-width: 730px) {
+@media (max-width: 850px) {
     p.texto  {
-      display: none !important;
+      font-size: 13px !important;
     }
     h2{
         font-size: 3.5vw; 
     }
+  }
+  @media (max-width: 650px) {
+    p.texto  {
+      font-size: 10px !important;
+    }
+
   }
   @media (max-width: 580px) {
     p.texto  {
@@ -19,38 +25,132 @@
     }
 
   }
-
 }
+
+
 #container-main-stepper {
-    #right-section{
+  #right-section {
 
-        @media (max-width: 1326px) {
-            .stepped-progress{
-            display: none !important;
-         }
-        }
-        
+    .stepped-progress {
 
+      @media (max-width: 1326px) {
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 13px !important;
+          height: 13px !important;
         }
+
+        .stepper__line {
+          width: 30px !important;
+        }
+      }
+
+      @media (max-width: 1103px) {
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 10px !important;
+          height: 10px !important;
+        }
+
+        .stepper__line {
+          width: 15px !important;
+        }
+      }
+
+      @media (max-width: 717px) {
+        margin-left: 20px;
+
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 10px !important;
+          height: 10px !important;
+        }
+
+        .stepper__line {
+          width: 5px !important;
+        }
+      }
+      @media (max-width: 500px) {
+        margin-left: 15px;
+
+      }
+
+      @media (max-width: 470px) {
+        margin-left: 5px;
+
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 8px !important;
+          height: 8px !important;
+        }
+
+        .stepper__line {
+          width: 5px !important;
+        }
+      }
+      @media (max-width: 394px) {
+
+        .stepper__line {
+          width: 0px !important;
+        }
+      }
+      @media (max-width: 314px) {
+
+        .stepper__circle,
+        .stepper__circle.active {
+          width: 5px !important;
+          height: 5px !important;
+        }
+      }
+
     }
+
+  }
+}
 #left-section {
     .opcion-container{
         .option-card {
             .text{
             b,p{
-                @media (max-width: 1330px) {
+                @media (max-width: 1505px) {
+                    // display: none !important;
+                    font-size: 0.6em !important;
+                }
+                 @media (max-width: 1173px) {
+                    // display: none !important;
+                    font-size: 0.5em !important;
+                }
+                @media (max-width: 1173px) {
+                    // display: none !important;
                     display: none !important;
                 }
+                @media (max-height: 740px) {
+                    display: none !important;
+                   
+                }
+                
             }
             p{
                 @media (max-width: 1330px) {
-                        font-size: clamp(12px, 1.5vw, 14px) !important;
+                        
                 }
             }
             h3{
-                @media (max-width: 650px) {
+                @media (max-width: 1505px) {
                     font-size: clamp(1rem, 3.5vw, 1.17em) !important;
                         font-weight: 200 !important;
+                }
+                @media (max-width: 1505px) {
+                    font-size: clamp(1rem, 3.5vw, 1.17em) !important;
+                        font-weight: 200 !important;
+                }
+                @media (max-width: 883px) {
+                    font-size: clamp(1rem, 3.5vw, 1em) !important;
+                        font-weight: 200 !important;
+                }
+                @media (max-height: 824px) {
+                    // display: none !important;
+                    margin:initial !important;
                 }
                     
             }
@@ -60,9 +160,6 @@
         }
     }
 }
-
-
-
 
 #container{
     #title{
@@ -138,24 +235,6 @@ section .checks div{
     }
 }
 
-@media screen and (max-width: 850px), screen and (max-height: 850px) { 
-  .parrado { 
-    display: none !important; 
-  } 
-}
-
-@media screen and (max-width: 850px), screen and (max-height: 850px) { 
-  .parrado { 
-    display: none !important; 
-  } 
-}
-
-@media screen and (max-width: 1357px), screen and (max-height: 728px) { 
-.stepped-progress{
-    display: none !important; 
-  }
-}
-
 
 @media screen and (max-height: 700px) { 
     .form-grid {
@@ -184,7 +263,7 @@ section .checks div{
   gap: 20px;
 
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 10px;
     display: block !important;
   }
 
@@ -206,11 +285,12 @@ section .checks div{
 }
 
 // Cuando la pantalla es baja (menos de 844px de altura)
-@media screen and (max-width: 1001px), screen and (max-height: 844px) { 
+@media screen and (max-width: 1135px), screen and (max-height: 844px) { 
     .form-grid {
         @include overflow-flex;
     }
 }
+
 
 // Ajustes extremos de altura (móviles en horizontal o pantallas muy pequeñas)
 @media screen and (max-height: 700px) { 
@@ -257,4 +337,31 @@ section .checks div{
   }
 }
 
+}
+
+@media (max-width: 1134px) {   
+    .form-container .form-group input, .form-container .form-group select{
+        width: 300px !important;
+    }
+
+}
+@media (max-width: 630px) {   
+    .information{
+            padding: 30px 10px 20px 10px !important;
+    }
+
+}
+
+@media (max-width: 461px) {   
+    .information{
+            padding: 30px 5px 20px 5px !important;
+    }
+
+}
+
+@media screen and (max-width: 717px), screen and (max-height: 640px) { 
+   p.texto  {
+      font-size: 10px !important;
+      white-space: normal !important;
+    }
 }

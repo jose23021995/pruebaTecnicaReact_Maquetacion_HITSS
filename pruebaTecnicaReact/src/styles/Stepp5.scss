@@ -18,14 +18,14 @@
   .formatted-text {
     line-height: 1.6;   // Da aire entre líneas para que sea legible
     font-size: 16px;
-    color: #333;
+    color: $stepp5-color-text-default;
     text-align: left;
     word-wrap: break-word; // Evita que palabras largas rompan el layout
     
 
     b {
       font-weight: bold;
-      color: #000;
+      color: $stepp5-color-text-strong;
     }
 
     br {

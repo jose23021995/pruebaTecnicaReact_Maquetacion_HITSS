@@ -1,18 +1,23 @@
 @use './variables' as *;
 
-// Mixin inteligente: no usa anchos fijos
+// =====================
+// MIXINS
+// =====================
 @mixin borderInput {
   border-radius: 34px !important;
-  width: 100% !important; // Ocupa el ancho del contenedor padre
-  max-width: 400px !important; // Pero no estira más de esto en PC
+  width: 100% !important;
+  max-width: 400px !important;
   height: 40px !important;
-  border: 1px solid #ccc !important;
+  border: 1px solid $color-border-default !important;
   padding: 0 15px !important;
   box-sizing: border-box !important;
-  background-color: white !important;
+  background-color: $color-bg-primary !important;
   outline: none !important;
 }
 
+// =====================
+// FORM CONTAINER
+// =====================
 #form-container {
   width: 100%;
   display: flex;
@@ -21,35 +26,33 @@
 
   form {
     width: 100%;
-    max-width: 500px; // Contenedor del formulario
+    max-width: 500px;
     display: flex;
     flex-direction: column;
-    align-items: center; // Centra los grupos de input
+    align-items: center;
     gap: 15px;
 
     .form-group {
       width: 100%;
       display: flex !important;
       flex-direction: column !important;
-      align-items: flex-start; // Alinea label e input a la izquierda del grupo
-      
+      align-items: flex-start;
+
       label {
         font-size: 13px;
-        color: #666;
+        color: $color-text-primary;
         margin-bottom: 5px;
-        margin-left: 15px; // Alineado con la curva del input
+        margin-left: 15px;
       }
 
-      select, input {
+      input,
+      select {
         @include borderInput;
       }
-      
-      // Ajuste específico para el ID que creaste
+
       #numeroTelefono {
         @include borderInput;
       }
     }
   }
 }
-
-// Media query para cuando el espacio se reduce (cerca de esos 831px)
