@@ -1,6 +1,36 @@
 @use './variables' as *;
 
 // ... (tus mixins aquí) ...
+@mixin overflow-flex {
+        // 1. Forzamos la disposición vertical
+  display: flex !important;
+  flex-direction: column !important;
+  
+  // 2. Definimos el límite de altura para activar el scroll
+  max-height: 400px; 
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  
+  // 3. Espaciado interno para evitar que los inputs toquen los bordes
+  padding-right: 15px; 
+  gap: 20px;
+
+  // 4. Estilo de la barra de scroll vertical
+  &::-webkit-scrollbar {
+    width: 6px; // Barra lateral
+    display: block !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+}
+  
 
 #rightSection-container {
   // Estilos base
@@ -12,6 +42,12 @@
     h2{
         font-size: 3.5vw; 
     }
+  }
+  @media (max-width: 580px) {
+    p.texto  {
+      display: none !important;
+    }
+
   }
 
 }
@@ -78,7 +114,7 @@
     }
 }
 .opcion-container-text p{
-    @media (max-width: 1170px) {
+    @media (max-width: 1170px), screen and (max-height: 878px) {
         display:none !important;
     }
 }
@@ -101,13 +137,7 @@ section .checks div{
 }
 .form-grid{
     @media (max-width: 1000px) {
-        display: flex !important;
-        flex-direction: column !important;
-        width: auto;
-        height:400px;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
+        @include overflow-flex;
     }
 }
 
@@ -174,3 +204,43 @@ section .checks div{
         }
     }
 }
+
+@media screen and (max-width: 850px), screen and (max-height: 850px) { 
+  .parrado { 
+    display: none !important; 
+  } 
+}
+
+@media screen and (max-width: 850px), screen and (max-height: 850px) { 
+  .parrado { 
+    display: none !important; 
+  } 
+}
+
+@media screen and (max-width: 1357px), screen and (max-height: 728px) { 
+.stepped-progress{
+    display: none !important; 
+  }
+}
+
+@media screen and (max-width: 1001px), screen and (max-height: 844px) { 
+    .form-grid {
+    @include overflow-flex;
+    }
+}
+
+@media screen and (max-height: 700px) { 
+    .form-grid {
+        max-height: 300px !important;
+    }
+}
+
+@media screen and (max-height: 600px) { 
+    .form-grid {
+        max-height: 200px !important;
+    }
+    #rightSection-container p.texto{
+        display: none !important;
+    }
+}
+

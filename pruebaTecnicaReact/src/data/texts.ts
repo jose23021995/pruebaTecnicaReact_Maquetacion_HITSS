@@ -164,7 +164,7 @@ export const Stepper:IStepper ={
                     stepper:5,
                     title:"Aceptación de Términos",
                     text:"Contrary to popular belief, Lorem Ipsum is not\n simply random text. It has roots in a piece of\n classical Latin literature from 45 BC, making it\n over 2000 years old.",
-                    img:"",
+                    img:"/assets/paso5/file-text.png",
                     options:[
                         {
                             id:1,

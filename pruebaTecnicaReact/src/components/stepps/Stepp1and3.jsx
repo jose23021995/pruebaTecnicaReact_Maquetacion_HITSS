@@ -42,9 +42,9 @@ const Stepp1and3 = ({ card, onDataChange, savedData }) => {
             />
           </div>
           <div className="text">
-            <h3>{option.title}</h3>
-            <b>{option.subtitle}</b>
-            <p>{option.text}</p>
+            <h3 className='titulo_pestaña'>{option.title}</h3>
+            <b className='borde'>{option.subtitle}</b>
+            <p className='parrado'>{option.text}</p>
           </div>
           {option.img && (
             <div className="img">
