@@ -64,17 +64,26 @@ const Stepp4 = ({ card, onDataChange, savedData }) => {
         </div>
 
         {/* Número de Celular */}
-        <div className="form-group">
-          <label>{input_celular}</label>
-          <input 
-            id='numeroTelefono'
-            type="tel" 
-            placeholder="3001234567"
-            {...register("numero")}
-            className={errors.numero ? "error" : ""}
-          />
-          {errors.numero && <span className="error-msg">{errors.numero.message}</span>}
-        </div>
+        {/* Número de Celular */}
+<div className="form-group">
+  <label>{input_celular}</label>
+  <input 
+    id='numeroTelefono' 
+    type="tel" 
+    placeholder="3001234567" 
+    {...register("numero", {
+      onChange: (e) => {
+        // 1. Solo permite números usando regex
+        const value = e.target.value.replace(/\D/g, ""); 
+        // 2. Limita a máximo 10 caracteres
+        e.target.value = value.slice(0, 10); 
+      }
+    })} 
+    className={errors.numero ? "error" : ""} 
+  />
+  {errors.numero && <span className="error-msg">{errors.numero.message}</span>}
+</div>
+
 
         {/* Entidad */}
         <div className="form-group">
