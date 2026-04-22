@@ -60,9 +60,43 @@ const Steppers = () => {
       
     }
   };
+// Validamos si UN paso específico está completo
+const isStepSpecificComplete = (stepNum) => {
+  const saved = SaveStepper.find(item => item.stepper === stepNum);
+  if (!saved) return false;
+
+  const values = Object.entries(saved)
+    .filter(([key]) => key !== 'stepper')
+    .map(([_, value]) => value);
+
+  return values.every(value => value !== null && value !== "");
+};
 
   const savedData = SaveStepper.find(item => item.stepper === currentStepper);
+const handleStepSelection = (isCurrent, stepNumber) => {
+  if (isCurrent) return; // Ya estamos aquí
 
+  // Si el usuario quiere ir a un paso futuro (ej. del 2 al 4)
+  if (stepNumber > currentStepper) {
+    // Verificamos si el paso actual está completo para poder avanzar
+    if (!isStepSpecificComplete(currentStepper)) {
+      alert("Debes completar el paso actual antes de avanzar.");
+      return;
+    }
+    
+    // Opcional: Validar que todos los pasos intermedios estén llenos
+    // (Por si intenta saltar del 1 al 5 de golpe)
+    for (let i = currentStepper; i < stepNumber; i++) {
+      if (!isStepSpecificComplete(i)) {
+        console.log(`El paso ${i} no está completo`);
+        return; 
+      }
+    }
+  }
+
+  // Si pasó las validaciones o es un paso anterior, cambiamos
+  setStepperId(stepNumber - 1);
+};
   return (
     <div id="container">
       <section id='title'>
@@ -76,7 +110,7 @@ const Steppers = () => {
             <RightSection card={currentCard} />
           </section>
           <div className="stepped-progress">
-            <StepperProgress total={totalSteppers} current={currentStepper} />
+            <StepperProgress total={totalSteppers} current={currentStepper} onStepClick={handleStepSelection} />
           </div>
         </section>
         
