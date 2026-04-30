@@ -1,0 +1,1736 @@
+================================================================================
+                    ANÁLISIS COMPLETO DEL FLUJO DEL SISTEMA
+                        PRUEBA TÉCNICA - REACT STEPPER
+================================================================================
+
+ÍNDICE:
+1. Descripción General
+2. Tecnologías Utilizadas
+3. Arquitectura y Estructura del Proyecto
+4. Interfaces y Tipos de Datos
+5. Componentes del Sistema
+6. Gestión de Estado y Flujo de Datos
+7. Páginas y Rutas
+8. Interacción entre Componentes
+9. Proceso de Navegación
+10. Validaciones y Restricciones
+11. Diagrama de Flujos del Sistema
+
+================================================================================
+1. DESCRIPCIÓN GENERAL
+================================================================================
+
+El sistema es una aplicación de formulario multi-paso (Stepper) desarrollada en
+React que guía al usuario a través de 5 pasos para completar un proceso de 
+activación de planes telefónicos. Cada paso tiene diferentes tipos de 
+interacciones:
+
+- PASO 1: Selección de plan (opciones)
+- PASO 2: Captura de datos personales (formulario)
+- PASO 3: Selección de tipo de línea (opciones)
+- PASO 4: Información de portabilidad (formulario con validación)
+- PASO 5: Aceptación de términos y condiciones (checkboxes)
+
+Después de completar todos los pasos, el usuario es redirigido a una página de
+confirmación final.
+
+================================================================================
+2. TECNOLOGÍAS UTILIZADAS
+================================================================================
+
+Frontend Framework:
+- React 19.2.5: Framework de UI basado en componentes
+
+Routing:
+- React Router DOM 7.14.1: Gestión de rutas y navegación entre páginas
+
+Validación de Datos:
+- Zod 4.3.6: Validación de esquemas TypeScript
+- React Hook Form 7.73.1: Gestión eficiente de formularios
+- @hookform/resolvers 5.2.2: Integración de Zod con React Hook Form
+
+Estilos:
+- SASS/SCSS 1.99.0: Preprocesador CSS para estilos modularizados
+
+Build Tool:
+- Vite 8.0.9: Bundler moderno y rápido
+
+Herramientas de Desarrollo:
+- ESLint 9.39.4: Linter para verificar calidad de código
+- TypeScript: Tipado estático en archivos .ts
+
+================================================================================
+3. ARQUITECTURA Y ESTRUCTURA DEL PROYECTO
+================================================================================
+
+ESTRUCTURA DE CARPETAS:
+
+/src
+├── App.jsx                          # Componente principal con routing
+├── main.jsx                         # Punto de entrada
+├── index.css                        # Estilos globales
+├── App.css                          # Estilos del componente App
+│
+├── /pages
+│   ├── Steppers.jsx                 # Página principal del stepper (5 pasos)
+│   └── Steppers_end.jsx             # Página de confirmación final
+│
+├── /components
+│   ├── RightSection.jsx             # Panel derecho con información del paso
+│   ├── StepperProgress.jsx          # Indicador visual del progreso
+│   └── /stepps
+│       ├── Stepp1and3.jsx           # Componente de selección (pasos 1 y 3)
+│       ├── stepp2.jsx              # Formulario datos personales (paso 2)
+│       ├── Stepp4.jsx              # Formulario portabilidad (paso 4)
+│       └── Step5.jsx               # Aceptación términos (paso 5)
+│
+├── /data
+│   ├── texts.ts                     # Interfaces y datos de contenido de pasos
+│   ├── steps.ts                     # Estado global de guardado de datos
+│   └── options.ts                   # Catálogos de opciones (operadores, etc.)
+│
+└── /styles
+    ├── styles.scss                  # Estilos generales
+    ├── variables.scss               # Variables SCSS
+    ├── responsive.scss              # Estilos responsivos
+    ├── stepp1.scss                  # Estilos paso 1
+    ├── stepp2.scss                  # Estilos paso 2
+    ├── stepp4.scss                  # Estilos paso 4
+    ├── Stepp5.scss                  # Estilos paso 5
+    ├── StepperProgress.scss         # Estilos indicador de progreso
+    ├── rightSection.scss            # Estilos panel derecho
+    ├── end.scss                     # Estilos página final
+    └── responsive.scss              # Media queries
+
+/public
+└── /assets                          # Imágenes y recursos
+    ├── paso1/                       # Imágenes paso 1
+    ├── paso2/                       # Imágenes paso 2
+    ├── paso3/
+    │   └── hijo/                    # Imágenes paso 3
+    ├── paso4/                       # Imágenes paso 4
+    ├── paso5/                       # Imágenes paso 5
+    └── paso6/                       # Imágenes página final
+
+================================================================================
+4. INTERFACES Y TIPOS DE DATOS
+================================================================================
+
+4.1 INTERFAZ DE OPCIONES DE PASOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+interface StepperOption {
+    id: number;                      # ID único de la opción
+    title: string;                   # Título principal
+    subtitle: string | null;         # Subtítulo opcional
+    text: string;                    # Descripción detallada
+    img: string | null;              # Ruta de imagen opcional
+}
+
+4.2 INTERFAZ DE FORMULARIOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+interface StepperForm {
+    input_nombre?: string;
+    input_celular?: string;
+    input_tipodocumento?: string;
+    numerodocumento?: string;
+    input_email?: string;
+    input_date_fechanacimiento?: string;
+    titleDomicilio?: string;
+    input_residencia?: string;
+    input_ciudad?: string;
+    input_departamento?: string;
+    input_barrio?: string;
+    input_operador?: string;
+    input_entidad?: string;
+}
+
+4.3 INTERFAZ DE TARJETA (CARD)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+interface StepperCard {
+    stepper: number;                 # Número del paso (1-5)
+    title: string;                   # Título del paso
+    text: string;                    # Descripción del paso
+    img: string;                     # Imagen representativa
+    options: StepperOption[] | null; # Para pasos 1 y 3 (selección)
+    form?: any | null;               # Para pasos 2 y 4 (formularios)
+    footer: string | null;           # Nota al pie opcional
+}
+
+4.4 INTERFAZ DEL BODY
+━━━━━━━━━━━━━━━━━━━━
+interface StepperBody {
+    id: number;
+    title: string;                   # Título principal de la sección
+    img: string | null;
+    text: string | null;             # Descripción general
+    button_next: string | null;      # Etiqueta botón siguiente
+    button_return: string | null;    # Etiqueta botón regresar
+    button_end: string | null;       # Etiqueta botón finalizar
+    card: StepperCard[];             # Array de tarjetas del paso
+}
+
+4.5 INTERFAZ PRINCIPAL
+━━━━━━━━━━━━━━━━━━━━━
+export interface IStepper {
+    body: StepperBody[];             # Array con todos los cuerpos de pasos
+}
+
+4.6 ESTADO GUARDADO (SaveStepper)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+type StepperOption = StepSimple | StepForm | StepOperator
+
+// PASO 1
+interface StepSimple {
+    stepper: 1;
+    id: number | null;              # ID de la opción seleccionada
+}
+
+// PASO 2
+interface StepForm {
+    stepper: 2;
+    nombre: string | null;
+    celular: string | null;
+    idDomicilio: number | null;
+    numero: string | null;
+    email: string | null;
+    fechaNacimiento: string | null;
+    direccion: string | null;
+    ciudad: string | null;
+    idDepartamento: number | null;
+    barrio: string | null;
+}
+
+// PASO 3
+interface StepSimple {
+    stepper: 3;
+    id: number | null;              # ID de la opción seleccionada
+}
+
+// PASO 4
+interface StepOperator {
+    stepper: 4;
+    idOperador: number | null;
+    numero: string | null;
+    idEntidad: number | null;
+}
+
+// PASO 5
+interface StepSimple {
+    stepper: 5;
+    id: number | null;              # 1 si ambos términos aceptados, null sino
+}
+
+4.7 CATÁLOGOS DE OPCIONES
+━━━━━━━━━━━━━━━━━━━━━━━
+interface CatalogoItem {
+    value: number;
+    text: string;
+}
+
+OPERADORES TELEFÓNICOS:
+- Telcel, Movistar, AT&T, Bait, Virgin Mobile, Pillofon, FreedomPop, Unefon,
+  Oxxo Cel, Izzi Móvil, Diri, Flash Mobile
+
+ENTIDADES (Países):
+- México, Estados Unidos, España, Argentina, Colombia, Chile, Perú, Canadá,
+  Venezuela, Ecuador, Guatemala, Bolivia, Honduras, El Salvador, Paraguay,
+  Nicaragua, Costa Rica, Puerto Rico, Panamá, Uruguay, Brasil,
+  República Dominicana, Reino Unido, Francia, Alemania, Italia
+
+TIPO DE DOMICILIO:
+- Particular/Residencial, Trabajo/Oficina, Comercial, Fiscal,
+  Bodega/Almacén, Rancho/Parcela, Departamento, Casa de Huéspedes, Sucursal
+
+TIPO DE DEPARTAMENTO:
+- Estudio/Monoambiente, Departamento Estándar, Duplex, Loft, Penthouse,
+  Garden House, Departamento de Lujo, Suite, Departamento de Interés Social
+
+================================================================================
+5. COMPONENTES DEL SISTEMA
+================================================================================
+
+5.1 COMPONENTE: Steppers.jsx (Contenedor Principal)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/pages/Steppers.jsx
+
+PROPÓSITO:
+- Gestor central de toda la lógica del stepper
+- Controla el estado de navegación entre pasos
+- Valida completitud de cada paso
+- Orquesta comunicación entre componentes
+
+ESTADO LOCAL:
+  - stepperId (number): Índice del paso actual (0-4)
+  - refresh (number): Disparador de re-render para validaciones
+
+LÓGICA PRINCIPAL:
+  1. Obtiene el primer elemento del array body de Stepper
+  2. Define constantes: totalSteppers = 5, currentStepper = stepperId + 1
+  3. Obtiene currentCard del array card[stepperId]
+
+FUNCIONES CLAVE:
+
+  isStepComplete(): Valida si el paso actual está completo
+    - Busca en SaveStepper el objeto con stepper === currentStepper
+    - Filtra la clave 'stepper'
+    - Verifica que todos los valores NO sean null ni vacíos
+    - Retorna boolean
+
+  handleNext(): Avanza al siguiente paso
+    - Verifica si no es el último paso
+    - Incrementa stepperId
+    - Desbloquea el botón "Siguiente"
+
+  handleFinish(): Finaliza el proceso
+    - Muestra confirmación al usuario
+    - Redirecciona a /final
+
+  handleDataChange(nombre, valor): Actualiza datos guardados
+    - Busca objeto en SaveStepper con stepper = valor.stepper
+    - Actualiza el objeto con los nuevos datos
+    - Dispara setRefresh para re-render
+    - Permite que isStepComplete se ejecute nuevamente
+
+  isStepSpecificComplete(stepNum): Valida un paso específico
+    - Similar a isStepComplete pero para cualquier paso
+    - Usada para validar saltos entre pasos
+
+  handleStepSelection(isCurrent, stepNumber): Maneja clics en StepperProgress
+    - Si es el mismo paso actual, no hace nada
+    - Si es un paso futuro: valida que paso actual esté completo
+    - Si es un paso anterior: permite navegación libre
+    - Establece setStepperId(stepNumber - 1)
+
+ESTRUCTURA RENDERIZADA:
+┌─────────────────────────────────────────────────────────┐
+│ #container                                              │
+│ ├─ #title                                              │
+│ │  ├─ h1.titlePrincipal                               │
+│ │  └─ p.subtitlePrincipal                             │
+│ ├─ #container-main-stepper                            │
+│ │  ├─ #right-section                                  │
+│ │  │  ├─ .information (RightSection)                  │
+│ │  │  └─ .stepped-progress (StepperProgress)          │
+│ │  └─ #left-section                                   │
+│ │     └─ [Componente de Paso Actual]                  │
+│ │        ├─ Stepp1and3 (pasos 1 y 3)                 │
+│ │        ├─ Stepp2 (paso 2)                          │
+│ │        ├─ Stepp4 (paso 4)                          │
+│ │        └─ Step5 (paso 5)                           │
+│ └─ #button-container                                  │
+│    ├─ button.return (Regresar)                        │
+│    ├─ button.next (Siguiente)                         │
+│    └─ button.next (Finalizar)                         │
+└─────────────────────────────────────────────────────────┘
+
+5.2 COMPONENTE: RightSection.jsx (Panel Informativo)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/components/RightSection.jsx
+
+PROPÓSITO:
+- Mostrar información visual e informativa del paso actual
+- Mostrar imagen representativa del paso
+- Mostrar número y título del paso
+
+PROPS:
+  - card (StepperCard): Datos del paso actual
+
+ESTRUCTURA RENDERIZADA:
+┌────────────────────────────────┐
+│ #rightSection-container        │
+│ ├─ .image-container            │
+│ │  └─ img (card.img)            │
+│ ├─ p: "Paso {stepper}"         │
+│ ├─ h2: {title}                 │
+│ └─ p.texto: {text}             │
+└────────────────────────────────┘
+
+5.3 COMPONENTE: StepperProgress.jsx (Indicador Visual)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/components/StepperProgress.jsx
+
+PROPÓSITO:
+- Mostrar progreso visual del stepper (5 puntos conectados)
+- Permitir navegación rápida entre pasos completados
+- Indicar paso actual y pasos completados
+
+PROPS:
+  - total (number): Total de pasos (5)
+  - current (number): Paso actual (1-5)
+  - onStepClick (function): Callback cuando se hace clic en un paso
+
+FUNCIÓN PRINCIPAL:
+  handleClick(step):
+    - Calcula si step === current (isCurrent)
+    - Llama onStepClick(isCurrent, step)
+    - Permite que Steppers.jsx valide la navegación
+
+ESTRUCTURA RENDERIZADA:
+┌────────────────────────────────┐
+│ .stepper                       │
+│ ├─ .stepper__item (para c/paso)
+│ │  ├─ [Si no es paso 1]       │
+│ │  │  └─ .stepper__line        │
+│ │  │     (class active si      │
+│ │  │      step <= current)     │
+│ │  └─ .stepper__circle         │
+│ │     (class active si         │
+│ │      step <= current)        │
+│ │     onClick: handleClick()   │
+└────────────────────────────────┘
+
+ESTILOS CSS:
+- .stepper__circle.active: Relleno de color (paso completado)
+- .stepper__line.active: Línea de conexión activa
+- cursor: pointer en círculos
+
+5.4 COMPONENTE: Stepp1and3.jsx (Selección de Opciones)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/components/stepps/Stepp1and3.jsx
+
+PROPÓSITO:
+- Componente reutilizable para pasos 1 y 3
+- Permitir selección de UNA opción mediante radio buttons
+- Mostrar opciones con imagen, título, subtítulo y descripción
+
+PROPS:
+  - card (StepperCard): Datos del paso
+  - onDataChange (function): Callback para actualizar SaveStepper
+  - savedData (object): Datos previamente guardados
+
+ESTADO LOCAL:
+  - selectedId (number|null): ID de la opción seleccionada
+
+INICIALIZACIÓN:
+  - const [selectedId, setSelectedId] = useState(savedData?.id || null)
+  - Si el usuario vuelve al paso, ve su selección anterior
+
+FUNCIÓN PRINCIPAL:
+  handleSelect(id):
+    1. Actualiza selectedId con el id clickeado
+    2. Construye objeto dataToSend:
+       {
+         id: id,
+         stepper: stepper
+       }
+    3. Llamaa onDataChange("opcionSeleccionada", dataToSend)
+    4. Esto actualiza SaveStepper[stepper-1] en Steppers.jsx
+
+ESTRUCTURA RENDERIZADA:
+┌──────────────────────────────────────┐
+│ .opcion-container                    │
+│ └─ (map options) → .option-card      │
+│    ├─ class: active (si selectedId   │
+│    │           === option.id)        │
+│    ├─ .input                         │
+│    │  └─ input[type=radio]           │
+│    │     onChange: handleSelect()    │
+│    │     checked: selectedId ===     │
+│    │              option.id          │
+│    ├─ .text                          │
+│    │  ├─ h3.titulo_pestaña           │
+│    │  ├─ b.borde (subtitle)          │
+│    │  └─ p.parrado (text)            │
+│    └─ .img (si option.img)           │
+│       └─ img                         │
+└──────────────────────────────────────┘
+
+5.5 COMPONENTE: stepp2.jsx (Formulario Datos Personales)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/components/stepps/stepp2.jsx
+
+PROPÓSITO:
+- Capturar datos personales del usuario
+- Validar en tiempo real con Zod
+- Mostrar errores de validación
+
+PROPS:
+  - card (StepperCard): Datos del paso
+  - onDataChange (function): Callback para actualizar SaveStepper
+  - savedData (object): Datos previamente guardados
+
+VALIDACIÓN (Zod Schema):
+  nombre: string.min(1)
+  celular: string.length(10)
+  idDomicilio: string.min(1)
+  numero: string.min(5).max(10)
+  email: string.email()
+  fechaNacimiento: string.min(1)
+  direccion: string.min(1)
+  ciudad: string.min(1)
+  idDepartamento: string.min(1)
+  barrio: string.min(1)
+
+ESTADO LOCAL:
+  - formData (object): Datos del formulario
+  - errors (object): Errores de validación
+
+FUNCIÓN PRINCIPAL:
+  handleChange(e):
+    1. Extrae nombre y valor del input
+    2. Si es celular/numero: filtra no-dígitos, limita a 10
+    3. Crea updatedData con los nuevos valores
+    4. Valida con schema.safeParse(updatedData)
+    5. Actualiza errors o limpia errores
+    6. Llamaa onDataChange("datosFormulario", updatedData)
+
+CAMPOS DEL FORMULARIO:
+  PERSONALES:
+  - Nombre (text)
+  - Número de Celular (numeric, 10 dígitos)
+  - Tipo de Documento (select → TipoDomicilio)
+  - Número de Documento (numeric)
+  - Correo Electrónico (email)
+  - Fecha de Nacimiento (date)
+
+  DOMICILIO:
+  - Dirección de Residencia (text)
+  - Ciudad / Municipio (text)
+  - Departamento (select → TipoDepartamento)
+  - Barrio (text)
+
+ESTRUCTURA RENDERIZADA:
+┌──────────────────────────────────────┐
+│ .form-container                      │
+│ └─ .form-grid                        │
+│    ├─ (map inputs) → .form-group    │
+│    │  ├─ label                       │
+│    │  ├─ input/select                │
+│    │  └─ [Si error] error class      │
+│    └─ h3.section-title:             │
+│       "Domicilio"                    │
+└──────────────────────────────────────┘
+
+5.6 COMPONENTE: Stepp4.jsx (Formulario Portabilidad)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/components/stepps/Stepp4.jsx
+
+PROPÓSITO:
+- Capturar datos de portabilidad de línea
+- Usar React Hook Form + Zod para validación
+- Validar mientras el usuario escribe (mode="onChange")
+
+PROPS:
+  - card (StepperCard): Datos del paso
+  - onDataChange (function): Callback para actualizar SaveStepper
+  - savedData (object): Datos previamente guardados
+
+LIBRERÍAS UTILIZADAS:
+  - react-hook-form: Gestión eficiente de formularios
+  - zod: Validación de esquemas
+  - @hookform/resolvers/zod: Integración
+
+VALIDACIÓN (Zod Schema):
+  idOperador: string.min(1)
+  numero: string.min(10).max(10).regex(/^\d+$/)
+  idEntidad: string.min(1)
+  stepper: number
+
+INICIALIZACIÓN (useForm):
+  {
+    resolver: zodResolver(schema),
+    defaultValues: {
+      stepper: 4,
+      idOperador: savedData?.idOperador || "",
+      numero: savedData?.numero || "",
+      idEntidad: savedData?.idEntidad || ""
+    },
+    mode: "onChange"  ← Valida mientras escribe
+  }
+
+FUNCIÓN PRINCIPAL:
+  watch() - Monitorea cambios en tiempo real
+  useEffect([allValues]):
+    - Cuando cambian los valores
+    - Llamaa onDataChange("datosPortabilidad", allValues)
+    - Esto actualiza SaveStepper[3] en Steppers.jsx
+
+CAMPOS DEL FORMULARIO:
+  - Operador Actual (select → OperadorTelefonico)
+  - Número de Celular (tel, 10 dígitos)
+  - Entidad de Pertenencia (select → EntidadDePertenencia)
+
+VALIDACIÓN DE INPUT:
+  - numero: Solo acepta dígitos
+  - número: Limita a 10 caracteres máximo
+  - Mostrar mensajes de error bajo cada campo
+
+ESTRUCTURA RENDERIZADA:
+┌──────────────────────────────────────┐
+│ #form-container                      │
+│ └─ form                              │
+│    ├─ .form-group (operador)        │
+│    │  ├─ label                       │
+│    │  ├─ select                      │
+│    │  └─ error-msg (si hay error)   │
+│    ├─ .form-group (número)          │
+│    │  ├─ label                       │
+│    │  ├─ input[type=tel]             │
+│    │  └─ error-msg (si hay error)   │
+│    └─ .form-group (entidad)         │
+│       ├─ label                       │
+│       ├─ select                      │
+│       └─ error-msg (si hay error)   │
+└──────────────────────────────────────┘
+
+5.7 COMPONENTE: Step5.jsx (Términos y Condiciones)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/components/stepps/Step5.jsx
+
+PROPÓSITO:
+- Mostrar términos y condiciones
+- Requerir 2 checkboxes de aceptación
+- Solo permitir finalizar si ambos están marcados
+
+PROPS:
+  - card (StepperCard): Datos del paso
+  - onDataChange (function): Callback para actualizar SaveStepper
+  - savedData (object): Datos previamente guardados
+
+ESTADO LOCAL:
+  - checks (object):
+    {
+      check1: boolean,  // Términos y condiciones
+      check2: boolean   // Tratamiento de datos
+    }
+
+INICIALIZACIÓN:
+  - Ambos checks comienzan como true si savedData?.id existe
+  - Si no, comienzan como false
+
+FUNCIÓN PRINCIPAL:
+  handleCheckChange(e):
+    1. Extrae name y checked del checkbox
+    2. Actualiza checks
+    3. Calcula isComplete = checks.check1 && checks.check2
+    4. Si isComplete = true, envía id: 1
+    5. Si isComplete = false, envía id: null
+    6. Llamaa onDataChange("aceptacionTerminos", dataToSend)
+
+LÓGICA DE HABILITACIÓN:
+  - Si ambos checks = true → isStepComplete() = true
+                            → Botón "Finalizar" habilitado
+  - Si cualquiera = false  → isStepComplete() = false
+                            → Botón "Finalizar" deshabilitado
+
+CAMPOS:
+  1. Checkbox: "Confirmo que he leído y acepto los términos..."
+  2. Checkbox: "Acepto el tratamiento de mis datos personales"
+
+ESTRUCTURA RENDERIZADA:
+┌──────────────────────────────────────┐
+│ .opcion-container-text               │
+│ ├─ h3: {title}                       │
+│ ├─ p.formatted-text: {text}          │
+│ │  (saltos de línea → <br/>)         │
+│ └─ .checks                           │
+│    ├─ div (check1)                   │
+│    │  ├─ input[type=checkbox]        │
+│    │  │  onChange: handleCheckChange │
+│    │  │  checked: checks.check1      │
+│    │  └─ label                       │
+│    └─ div (check2)                   │
+│       ├─ input[type=checkbox]        │
+│       │  onChange: handleCheckChange │
+│       │  checked: checks.check2      │
+│       └─ label                       │
+└──────────────────────────────────────┘
+
+5.8 COMPONENTE: SteppersEnd.jsx (Página de Confirmación)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: /src/pages/Steppers_end.jsx
+
+PROPÓSITO:
+- Mostrar mensaje de confirmación al completar todos los pasos
+- Proporcionar botón para regresar al inicio
+
+LÓGICA:
+  1. Obtiene datos del segundo elemento de Stepper.body[1]
+  2. Muestra título con imagen
+  3. Muestra título de tarjeta y descripción
+  4. Botón "Continuar" redirecciona a "/"
+
+HANDLEFINISH:
+  - window.location.href = '/'
+  - Regresa a la página inicial (reinicia el proceso)
+
+ESTRUCTURA RENDERIZADA:
+┌──────────────────────────────────────┐
+│ #steppers-end                        │
+│ └─ .container                        │
+│    ├─ h2                             │
+│    │  ├─ img (img)                   │
+│    │  └─ {title}                     │
+│    └─ .card                          │
+│       ├─ h3: {cardTitle}             │
+│       ├─ p: {text}                   │
+│       └─ button                      │
+│          onClick: handleFinish()     │
+└──────────────────────────────────────┘
+
+================================================================================
+6. GESTIÓN DE ESTADO Y FLUJO DE DATOS
+================================================================================
+
+6.1 ARQUITECTURA DE ESTADO
+━━━━━━━━━━━━━━━━━━━━━━━━━
+
+El sistema utiliza una arquitectura SIMPLE SIN REDUX ni Context API:
+
+1. ESTADO LOCAL EN COMPONENTES:
+   - Cada componente de paso mantiene su propio estado local
+   - Stepper mantiene estado de navegación (stepperId)
+
+2. ESTADO GLOBAL EN ARCHIVO (steps.ts):
+   - SaveStepper: Array que actúa como "state global"
+   - Actualizado directamente desde funciones
+   - NO es reactivo, pero dispara re-render mediante setRefresh
+
+3. DATOS ESTÁTICOS:
+   - texts.ts: Contiene datos de pasos (nunca cambia)
+   - options.ts: Contiene catálogos (nunca cambia)
+
+6.2 SaveStepper: Estado Global
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DEFINICIÓN:
+export let SaveStepper: StepperOption[] = [
+  { stepper: 1, id: null },
+  { 
+    stepper: 2,
+    nombre: null, 
+    celular: null, 
+    idDomicilio: null, 
+    numero: null, 
+    email: null, 
+    fechaNacimiento: null, 
+    direccion: null, 
+    ciudad: null, 
+    idDepartamento: null, 
+    barrio: null 
+  },
+  { stepper: 3, id: null },
+  { 
+    stepper: 4, 
+    idOperador: null, 
+    numero: null, 
+    idEntidad: null 
+  },
+  { stepper: 5, id: null }
+]
+
+ACTUALIZACIÓN:
+1. Componente de paso llama onDataChange()
+2. Steppers.jsx recibe la llamada en handleDataChange()
+3. Busca el índice en SaveStepper
+4. Actualiza el objeto: SaveStepper[index] = valorNuevo
+5. Dispara setRefresh() para forzar re-render
+6. isStepComplete() se ejecuta nuevamente
+7. Si paso está completo, botón "Siguiente" se habilita
+
+ACCESO A DATOS:
+- Cualquier componente puede importar SaveStepper
+- Se actualiza directamente: SaveStepper[index].propiedad = valor
+- NO es reactivo por sí solo, requiere setRefresh()
+
+6.3 FLUJO DE DATOS: PAP0 1 (Stepp1and3.jsx)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usuario hace clic en opción:
+  ↓
+handleSelect(id)
+  ↓
+setSelectedId(id)
+  ↓
+onDataChange("opcionSeleccionada", { id, stepper: 1 })
+  ↓
+Steppers.jsx → handleDataChange(nombre, valor)
+  ↓
+Busca SaveStepper.find(item => item.stepper === 1)
+  ↓
+SaveStepper[0] = { stepper: 1, id: id }
+  ↓
+setRefresh(prev => prev + 1)
+  ↓
+Re-render
+  ↓
+isStepComplete() busca SaveStepper[0] y valida
+  ↓
+Si valor.id !== null → paso completo → botón habilitado
+
+6.4 FLUJO DE DATOS: PASO 2 (stepp2.jsx)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usuario escribe en input:
+  ↓
+handleChange(e)
+  ↓
+Procesa valor (limpia dígitos, formatea, etc.)
+  ↓
+Crea updatedData con nuevo valor
+  ↓
+Valida con Zod schema
+  ↓
+Si válido: setErrors({})
+Si inválido: setErrors(result.error.format())
+  ↓
+onDataChange("datosFormulario", updatedData)
+  ↓
+Steppers.jsx → handleDataChange()
+  ↓
+SaveStepper[1] = updatedData
+  ↓
+setRefresh(prev => prev + 1)
+  ↓
+Re-render
+  ↓
+isStepComplete() busca SaveStepper[1] y valida TODOS los campos
+  ↓
+Si TODOS tienen valor (no null ni "") → botón habilitado
+
+6.5 FLUJO DE DATOS: PASO 4 (Stepp4.jsx)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usuario escribe/selecciona:
+  ↓
+React Hook Form watch() detecta cambio
+  ↓
+useEffect([allValues]) se ejecuta
+  ↓
+onDataChange("datosPortabilidad", allValues)
+  ↓
+Steppers.jsx → handleDataChange()
+  ↓
+SaveStepper[3] = allValues
+  ↓
+setRefresh(prev => prev + 1)
+  ↓
+Re-render
+  ↓
+isStepComplete() valida que TODOS sean válidos según Zod
+  ↓
+Si valid → botón habilitado
+
+6.6 FLUJO DE DATOS: PASO 5 (Step5.jsx)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usuario marca checkbox:
+  ↓
+handleCheckChange(e)
+  ↓
+Actualiza checks
+  ↓
+isComplete = checks.check1 && checks.check2
+  ↓
+Si isComplete: dataToSend.id = 1
+Si no: dataToSend.id = null
+  ↓
+onDataChange("aceptacionTerminos", dataToSend)
+  ↓
+Steppers.jsx → handleDataChange()
+  ↓
+SaveStepper[4] = { stepper: 5, id: 1 o null }
+  ↓
+setRefresh(prev => prev + 1)
+  ↓
+Re-render
+  ↓
+isStepComplete() valida SaveStepper[4].id !== null
+  ↓
+Si ambos checks marcados → botón habilitado
+
+================================================================================
+7. PÁGINAS Y RUTAS
+================================================================================
+
+7.1 ROUTING (App.jsx)
+━━━━━━━━━━━━━━━━━━━
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Steppers />} />
+    <Route path="/final" element={<SteppersEnd />} />
+  </Routes>
+</BrowserRouter>
+
+RUTAS DISPONIBLES:
+
+1. "/" → <Steppers />
+   - Página principal
+   - Formulario de 5 pasos
+   - Punto de entrada del sistema
+
+2. "/final" → <SteppersEnd />
+   - Página de confirmación
+   - Mostrada después de completar paso 5
+   - Botón para regresar a "/"
+
+7.2 FLUJO DE NAVEGACIÓN
+━━━━━━━━━━━━━━━━━━━━━
+
+INICIO
+  ↓
+URL: / → Carga Steppers.jsx
+  ↓
+stepperId = 0, currentStepper = 1
+  ↓
+Muestra Stepp1and3 (paso 1)
+  ↓
+Usuario completa paso 1
+  ↓
+Botón "Siguiente" habilitado
+  ↓
+Usuario hace clic "Siguiente"
+  ↓
+handleNext(): stepperId = 1
+  ↓
+currentStepper = 2
+  ↓
+Muestra stepp2 (paso 2)
+  ↓
+[Repite para pasos 2, 3, 4]
+  ↓
+stepperId = 4, currentStepper = 5
+  ↓
+Muestra Step5 (paso 5)
+  ↓
+Usuario completa paso 5
+  ↓
+Botón "Finalizar" habilitado
+  ↓
+Usuario hace clic "Finalizar"
+  ↓
+Confirmación: "¿Seguro que quieres finalizar?"
+  ↓
+Si confirma: window.location.href = '/final'
+  ↓
+URL: /final → Carga SteppersEnd.jsx
+  ↓
+Muestra confirmación
+  ↓
+Usuario hace clic "Continuar"
+  ↓
+window.location.href = '/'
+  ↓
+Regresa a "/", reinicia proceso
+
+================================================================================
+8. INTERACCIÓN ENTRE COMPONENTES
+================================================================================
+
+8.1 JERARQUÍA DE COMPONENTES
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+App.jsx
+├─ BrowserRouter
+└─ Routes
+   ├─ Route "/" 
+   │  └─ Steppers.jsx (Contenedor Principal)
+   │     ├─ RightSection.jsx
+   │     │  └─ Muestra información del paso
+   │     ├─ StepperProgress.jsx
+   │     │  └─ Muestra indicador visual
+   │     ├─ [Componente de Paso Actual]
+   │     │  ├─ Stepp1and3.jsx
+   │     │  ├─ stepp2.jsx
+   │     │  ├─ Stepp4.jsx
+   │     │  └─ Step5.jsx
+   │     └─ [Botones de Navegación]
+   │
+   └─ Route "/final"
+      └─ SteppersEnd.jsx (Página Final)
+
+8.2 COMUNICACIÓN ENTRE COMPONENTES (Props & Callbacks)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASO 1: PADRE → HIJO (Props)
+Steppers.jsx → Stepp1and3.jsx
+  - card: StepperCard
+  - onDataChange: function
+  - savedData: object
+
+PASO 2: HIJO → PADRE (Callbacks)
+Stepp1and3.jsx → Steppers.jsx
+  - onDataChange("opcionSeleccionada", { id, stepper })
+  - Steppers.jsx recibe en handleDataChange()
+  - Actualiza SaveStepper
+  - Dispara setRefresh()
+
+PASO 3: RE-RENDER Y VALIDACIÓN
+Steppers.jsx
+  - Re-render causado por setRefresh()
+  - isStepComplete() se ejecuta
+  - Verifica SaveStepper
+  - Habilita/deshabilita botones
+
+PASO 4: OBTENCIÓN DE DATOS
+Cualquier componente necesita datos:
+  - import { SaveStepper } from '../data/steps'
+  - const savedData = SaveStepper.find(item => item.stepper === 1)
+  - Acceso directo al estado "global"
+
+8.3 INTERACCIÓN: STEPPER.JSX ↔ STEPPERPROGRESS.JSX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usuario hace clic en círculo del stepper:
+  ↓
+StepperProgress.jsx → handleClick(step)
+  ↓
+Llamaa onStepClick(step === current, step)
+  ↓
+Steppers.jsx → handleStepSelection(isCurrent, stepNumber)
+  ↓
+Si isCurrent: no hace nada (ya estás aquí)
+Si stepNumber > currentStepper: valida pasos intermedios
+Si stepNumber < currentStepper: permite navegación libre
+  ↓
+Si pasa validación: setStepperId(stepNumber - 1)
+  ↓
+Re-render
+  ↓
+currentStepper = stepNumber
+  ↓
+Renderiza componente correspondiente
+
+8.4 CICLO COMPLETO DE ACTUALIZACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usuario Interacción (clic, escritura, cambio)
+        ↓
+   Componente Hijo (Stepp1and3, stepp2, etc.)
+        ↓
+   onChange → onDataChange(nombre, valor)
+        ↓
+   Padre (Steppers.jsx)
+        ↓
+   handleDataChange(nombre, valor)
+        ↓
+   Actualiza SaveStepper
+        ↓
+   setRefresh(prev => prev + 1)  [Dispara re-render]
+        ↓
+   Re-render de Steppers
+        ↓
+   isStepComplete() se ejecuta
+        ↓
+   Obtiene savedData del nuevo SaveStepper
+        ↓
+   Props pasan a componentes hijos
+        ↓
+   Componentes se actualizan (deshabilitación de botones)
+        ↓
+   [Loop hasta que usuario interactúe nuevamente]
+
+================================================================================
+9. PROCESO DE NAVEGACIÓN
+================================================================================
+
+9.1 VALIDACIÓN DE PASO COMPLETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const isStepComplete = () => {
+  const currentSaved = SaveStepper.find(item => item.stepper === currentStepper);
+  if (!currentSaved) return false;
+
+  const values = Object.entries(currentSaved)
+    .filter(([key]) => key !== 'stepper')
+    .map(([_, value]) => value);
+
+  return values.every(value => value !== null && value !== "");
+};
+
+LÓGICA:
+1. Busca el objeto del paso actual en SaveStepper
+2. Si no existe: retorna false
+3. Obtiene todos los valores (excepto 'stepper')
+4. Verifica que TODOS sean !== null y !== ""
+5. Retorna true solo si TODOS los valores están llenos
+
+PASO 1:
+  SaveStepper[0] = { stepper: 1, id: 3 }
+  → values = [3]
+  → 3 !== null && 3 !== "" → true
+
+PASO 2:
+  SaveStepper[1] = { stepper: 2, nombre: "Juan", celular: null, ... }
+  → values = ["Juan", null, ...]
+  → null === null → false
+  → isStepComplete() = false
+
+PASO 5:
+  SaveStepper[4] = { stepper: 5, id: null }  (checkboxes sin marcar)
+  → values = [null]
+  → null === null → false
+  → isStepComplete() = false
+
+  SaveStepper[4] = { stepper: 5, id: 1 }  (ambos checkboxes marcados)
+  → values = [1]
+  → 1 !== null && 1 !== "" → true
+  → isStepComplete() = true
+
+9.2 VALIDACIÓN DE PASO ESPECÍFICO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const isStepSpecificComplete = (stepNum) => {
+  const saved = SaveStepper.find(item => item.stepper === stepNum);
+  if (!saved) return false;
+
+  const values = Object.entries(saved)
+    .filter(([key]) => key !== 'stepper')
+    .map(([_, value]) => value);
+
+  return values.every(value => value !== null && value !== "");
+};
+
+USO:
+- Cuando usuario intenta saltar de paso 2 a paso 4 (omitiendo paso 3)
+- Valida que paso 2 esté completo
+- Si no: muestra alert "Debes completar el paso actual"
+
+9.3 FLUJO DE BOTÓN "SIGUIENTE"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{stepperId < totalSteppers - 1 && (
+  <button 
+    className={`next ${!isStepComplete() ? 'disabled' : ''}`} 
+    onClick={handleNext}
+    disabled={!isStepComplete()}
+  >
+    {button_next}
+  </button>
+)}
+
+LÓGICA:
+1. Solo muestra si no está en último paso (stepperId < 4)
+2. Class 'disabled' si paso incompleto
+3. Atributo disabled si paso incompleto
+4. onClick llamaa handleNext()
+
+handleNext():
+  if (stepperId < totalSteppers - 1) {
+    setStepperId(stepperId + 1);
+  }
+
+RESULTADO:
+- Si paso completo: botón habilitado, clic avanza a siguiente
+- Si paso incompleto: botón deshabilitado, no responde a clic
+
+9.4 FLUJO DE BOTÓN "REGRESAR"
+━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{stepperId > 0 && (
+  <button className='return' onClick={() => setStepperId(stepperId - 1)}>
+    {button_return}
+  </button>
+)}
+
+LÓGICA:
+1. Solo muestra si no está en primer paso (stepperId > 0)
+2. Sin restricciones de validación
+3. onClick reduce stepperId en 1
+
+RESULTADO:
+- Siempre habilitado (excepto en paso 1)
+- Permite retroceder sin validación
+
+9.5 FLUJO DE BOTÓN "FINALIZAR"
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{stepperId === totalSteppers - 1 && (
+  <button 
+    className={`next ${!isStepComplete() ? 'disabled' : ''}`} 
+    onClick={handleFinish}
+    disabled={!isStepComplete()}
+  >
+    {button_end}
+  </button>
+)}
+
+handleFinish():
+  if (window.confirm("¿Seguro que quieres finalizar?...")) {
+    window.location.href = '/final';
+  }
+
+LÓGICA:
+1. Solo muestra en último paso (stepperId === 4)
+2. Habilitado solo si paso 5 completo
+3. Muestra confirmación antes de finalizar
+4. Si confirma: redirecciona a /final
+
+RESULTADO:
+- Si paso 5 incompleto: botón deshabilitado
+- Si paso 5 completo: botón habilitado
+- Si hace clic y confirma: va a página final
+
+================================================================================
+10. VALIDACIONES Y RESTRICCIONES
+================================================================================
+
+10.1 VALIDACIÓN PASO 1
+━━━━━━━━━━━━━━━━━━━
+
+TIPO: Selección obligatoria
+CAMPO: id (number | null)
+
+REGLA:
+- Usuario debe seleccionar UNA opción
+- id !== null
+
+ERROR:
+- Si id = null → paso incompleto → botón siguiente deshabilitado
+
+MENSAJE:
+- No hay mensaje explícito, solo botón deshabilitado
+
+10.2 VALIDACIÓN PASO 2
+━━━━━━━━━━━━━━━━━━━
+
+TIPO: Formulario con validación Zod
+CAMPOS: 11 campos obligatorios
+
+const userSchema = z.object({
+  nombre: z.string().min(1),                       // No vacío
+  celular: z.string().length(10),                  // Exactamente 10 dígitos
+  idDomicilio: z.string().min(1),                  // Selección requerida
+  numero: z.string().min(5).max(10),               // 5-10 dígitos
+  email: z.string().email(),                       // Email válido
+  fechaNacimiento: z.string().min(1),              // No vacío
+  direccion: z.string().min(1),                    // No vacío
+  ciudad: z.string().min(1),                       // No vacío
+  idDepartamento: z.string().min(1),               // Selección requerida
+  barrio: z.string().min(1)                        // No vacío
+});
+
+VALIDACIÓN EN TIEMPO REAL:
+- Mientras usuario escribe, Zod valida
+- Si hay error: setErrors(error.format())
+- Campo con error: class="error"
+- Si válido: setErrors({})
+
+RESTRICCIONES DE INPUT:
+- celular: Solo dígitos, máx 10
+- numero: Solo dígitos, máx 10
+
+BOTÓN "SIGUIENTE":
+- Habilitado solo si TODOS los campos válidos y llenos
+
+ERROR FEEDBACK:
+- Campo con borde rojo si inválido
+- Sin mensajes explícitos en paso 2
+
+10.3 VALIDACIÓN PASO 3
+━━━━━━━━━━━━━━━━━━━
+
+TIPO: Selección obligatoria (similar a paso 1)
+CAMPO: id (number | null)
+
+REGLA:
+- Usuario debe seleccionar UNA opción
+- id !== null
+
+OPCIONES:
+  1. Línea Nueva
+  2. Cambio de Plan
+  3. Portabilidad
+
+10.4 VALIDACIÓN PASO 4
+━━━━━━━━━━━━━━━━━━━
+
+TIPO: Formulario con validación Zod
+LIBRERÍAS: React Hook Form + Zod
+VALIDACIÓN: En tiempo real (mode="onChange")
+
+const schema = z.object({
+  idOperador: z.string().min(1, "Selecciona un operador"),
+  numero: z.string()
+    .min(10, "El número debe tener 10 dígitos")
+    .max(10, "El número debe tener 10 dígitos")
+    .regex(/^\d+$/, "Solo se permiten números"),
+  idEntidad: z.string().min(1, "Selecciona una entidad"),
+  stepper: z.number()
+});
+
+CAMPOS:
+  1. idOperador: Select de operadores (1-12)
+     - Requerido
+     - Mensaje: "Selecciona un operador"
+
+  2. numero: Teléfono de 10 dígitos
+     - Requerido
+     - Solo dígitos
+     - Exactamente 10 caracteres
+     - Mensajes de error específicos
+
+  3. idEntidad: Select de países
+     - Requerido
+     - Mensaje: "Selecciona una entidad"
+
+VALIDACIÓN DE INPUT:
+- numero: Se filtra automáticamente
+  - e.target.value.replace(/\D/g, "") → solo dígitos
+  - .slice(0, 10) → máximo 10 caracteres
+
+ERROR FEEDBACK:
+- Cada campo muestra span.error-msg si hay error
+- Mensaje específico según validación de Zod
+
+BOTÓN "SIGUIENTE":
+- Habilitado solo si todos los campos válidos
+
+10.5 VALIDACIÓN PASO 5
+━━━━━━━━━━━━━━━━━━━
+
+TIPO: Checkboxes obligatorios
+CAMPOS: 2 checkboxes
+
+REGLAS:
+  1. "Confirmo que he leído y acepto los términos..."
+  2. "Acepto el tratamiento de mis datos personales"
+
+LÓGICA:
+- Ambos DEBEN estar marcados para completar paso
+- Si cualquiera está sin marcar: id = null
+- Si ambos marcados: id = 1
+
+isStepComplete():
+- SaveStepper[4].id !== null → paso completo
+- SaveStepper[4].id === null → paso incompleto
+
+BOTÓN "FINALIZAR":
+- Habilitado solo si ambos checkboxes marcados
+
+CONFIRMACIÓN FINAL:
+- window.confirm("¿Seguro que quieres finalizar?...")
+- Si no confirma: se queda en paso 5
+- Si confirma: redirecciona a /final
+
+10.6 VALIDACIÓN DE NAVEGACIÓN ENTRE PASOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+handleStepSelection(isCurrent, stepNumber):
+
+CASO 1: stepNumber === currentStepper
+  - Usuario hace clic en su paso actual
+  - Retorna sin hacer nada
+
+CASO 2: stepNumber > currentStepper (avanzar)
+  - Usuario intenta saltar adelante
+  - Valida que paso ACTUAL esté completo
+  - Si no: alert("Debes completar el paso actual...")
+  - Si sí: permite navegar
+
+CASO 3: stepNumber < currentStepper (retroceder)
+  - Usuario intenta ir a paso anterior
+  - SIN validación
+  - Permite navegación libre
+
+OPCIONAL: Validación de pasos intermedios
+  for (let i = currentStepper; i < stepNumber; i++) {
+    if (!isStepSpecificComplete(i)) {
+      console.log(`El paso ${i} no está completo`);
+      return;  // Bloquea si hay paso incompleto
+    }
+  }
+  
+  (Está comentado en el código actual)
+
+================================================================================
+11. DIAGRAMA DE FLUJOS DEL SISTEMA
+================================================================================
+
+DIAGRAMA 1: FLUJO GENERAL DEL APLICATIVO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                          INICIO
+                            ↓
+                  URL: localhost:5173/
+                            ↓
+                    Carga App.jsx + Router
+                            ↓
+                    Renderiza <Steppers />
+                            ↓
+               ┌─────────────────────────┐
+               │    PASO 1: Plan         │
+               │ Seleccionar opción (1) │
+               └──────────┬──────────────┘
+                          ↓
+                    ¿Seleccionó?
+                     ↙         ↘
+                   NO          SÍ
+                   ↓           ↓
+             Botón Des-     Botón Habilit.
+             habilitado     ↓
+                      Usuario Clic
+                      "Siguiente"
+                            ↓
+               ┌─────────────────────────┐
+               │   PASO 2: Datos Pers.  │
+               │  Completar Formulario   │
+               └──────────┬──────────────┘
+                          ↓
+                   ¿Todos campos OK?
+                     ↙         ↘
+                   NO          SÍ
+                   ↓           ↓
+             Botón Des-     Botón Habilit.
+             habilitado     ↓
+                      Usuario Clic
+                      "Siguiente"
+                            ↓
+               ┌─────────────────────────┐
+               │  PASO 3: Tipo Línea    │
+               │ Seleccionar opción (1) │
+               └──────────┬──────────────┘
+                          ↓
+                    ¿Seleccionó?
+                     ↙         ↘
+                   NO          SÍ
+                   ↓           ↓
+             Botón Des-     Botón Habilit.
+             habilitado     ↓
+                      Usuario Clic
+                      "Siguiente"
+                            ↓
+               ┌─────────────────────────┐
+               │  PASO 4: Portabilidad  │
+               │  Completar Formulario   │
+               └──────────┬──────────────┘
+                          ↓
+                   ¿Todos campos OK?
+                     ↙         ↘
+                   NO          SÍ
+                   ↓           ↓
+             Botón Des-     Botón Habilit.
+             habilitado     ↓
+                      Usuario Clic
+                      "Siguiente"
+                            ↓
+               ┌─────────────────────────┐
+               │   PASO 5: Términos      │
+               │ Marcar 2 Checkboxes     │
+               └──────────┬──────────────┘
+                          ↓
+               ¿Ambos Checkboxes marcados?
+                     ↙         ↘
+                   NO          SÍ
+                   ↓           ↓
+             Botón Des-     Botón Habilit.
+             habilitado     ↓
+                      Usuario Clic
+                      "Finalizar"
+                            ↓
+                ┌──────────────────────────┐
+                │  ¿Confirmación Final?   │
+                │  "¿Seguro finalizar?"   │
+                └────────┬──────────┬─────┘
+                        NO          SÍ
+                        ↓           ↓
+                  Se queda en   window.location.href
+                    PASO 5         = '/final'
+                        ↑           ↓
+                        └─────┬─────┘
+                              ↓
+                    URL: /final
+                              ↓
+              ┌───────────────────────────┐
+              │  Página Confirmación      │
+              │  "¡Proceso Completado!"   │
+              │  Botón: "Continuar"       │
+              └────────────┬──────────────┘
+                           ↓
+                  Usuario hace clic
+                   "Continuar"
+                           ↓
+               window.location.href = '/'
+                           ↓
+                  Regresa a inicio
+                  (Reinicia proceso)
+                           ↓
+                           FIN
+
+DIAGRAMA 2: INTERACCIÓN DE COMPONENTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+          ┌──────────────────────────┐
+          │     App.jsx (Router)     │
+          │ <BrowserRouter>          │
+          │   <Routes>               │
+          │     Route "/" / "/final"  │
+          └──────────────┬───────────┘
+                         │
+         ┌───────────────┴──────────────┐
+         │                              │
+    ┌────▼──────────┐            ┌─────▼─────────┐
+    │ Steppers.jsx  │            │ SteppersEnd.  │
+    │(Contenedor)   │            │ jsx (Confirm.)│
+    └────┬──────────┘            └───────────────┘
+         │
+    ┌────┴─────────────────────────────────────────┐
+    │                                              │
+┌───▼──────────────┐  ┌────────────────┐  ┌──────▼─────────┐
+│ RightSection.jsx │  │StepperProgress │  │[Componente    │
+│ (Panel Info)     │  │.jsx (Indicador)│  │ de Paso Actual]│
+└──────────────────┘  └────────┬───────┘  └──────┬─────────┘
+                               │                 │
+                        onClick evento      Según stepperId
+                               │          ┌──┬──┬──┬──┬──┐
+                               ▼          ▼  ▼  ▼  ▼  ▼
+                        handleStepSel    St1 St2 St3 St4 St5
+                        ection()
+
+COMPONENTES DE PASO:
+
+┌─ Stepp1and3.jsx
+│  ├─ Props: card, onDataChange, savedData
+│  ├─ Estado: selectedId
+│  └─ Evento: onClick → onDataChange()
+
+├─ stepp2.jsx
+│  ├─ Props: card, onDataChange, savedData
+│  ├─ Estado: formData, errors
+│  └─ Evento: onChange → onDataChange()
+
+├─ Stepp4.jsx
+│  ├─ Props: card, onDataChange, savedData
+│  ├─ useForm + Zod
+│  ├─ watch(): monitorea cambios
+│  └─ useEffect → onDataChange()
+
+└─ Step5.jsx
+   ├─ Props: card, onDataChange, savedData
+   ├─ Estado: checks (2 checkboxes)
+   └─ Evento: onChange → onDataChange()
+
+DIAGRAMA 3: FLUJO DE DATOS (Data Flow)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+            USUARIO
+              │
+              │ Interacción
+              │ (clic, escritura)
+              ▼
+    ┌──────────────────────┐
+    │ Componente de Paso   │
+    │ (Stepp1and3, etc.)   │
+    └──────────┬───────────┘
+               │
+               │ onDataChange("nombre", valor)
+               │
+               ▼
+    ┌──────────────────────────┐
+    │ Steppers.jsx             │
+    │ handleDataChange()        │
+    └──────────┬───────────────┘
+               │
+               │ SaveStepper[index] = valor
+               │
+               ▼
+    ┌──────────────────────────┐
+    │ /data/steps.ts           │
+    │ SaveStepper (Estado Gbl) │
+    └──────────┬───────────────┘
+               │
+               │ setRefresh(prev => prev + 1)
+               │
+               ▼
+    ┌──────────────────────────┐
+    │ Re-render Steppers.jsx   │
+    │ isStepComplete() check    │
+    └──────────┬───────────────┘
+               │
+               │ Obtiene savedData
+               │
+               ▼
+    ┌──────────────────────────┐
+    │ Props pasan a hijos      │
+    │ currentCard, savedData    │
+    └──────────┬───────────────┘
+               │
+               │ Componentes se actualizan
+               │ Estados locales se sincronizan
+               │
+               ▼
+    ┌──────────────────────────┐
+    │ Botones habilitados/      │
+    │ deshabilitados según      │
+    │ isStepComplete()          │
+    └──────────────────────────┘
+
+DIAGRAMA 4: ESTRUCTURA DE SaveStepper
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SaveStepper: Array[5]
+
+[0] PASO 1 - Selección
+   {
+     stepper: 1,
+     id: number | null
+   }
+   └─ Actualizado por: Stepp1and3.jsx
+
+[1] PASO 2 - Datos Personales
+   {
+     stepper: 2,
+     nombre: string | null,
+     celular: string | null,
+     idDomicilio: string | null,
+     numero: string | null,
+     email: string | null,
+     fechaNacimiento: string | null,
+     direccion: string | null,
+     ciudad: string | null,
+     idDepartamento: string | null,
+     barrio: string | null
+   }
+   └─ Actualizado por: stepp2.jsx
+
+[2] PASO 3 - Selección
+   {
+     stepper: 3,
+     id: number | null
+   }
+   └─ Actualizado por: Stepp1and3.jsx
+
+[3] PASO 4 - Portabilidad
+   {
+     stepper: 4,
+     idOperador: number | null,
+     numero: string | null,
+     idEntidad: number | null
+   }
+   └─ Actualizado por: Stepp4.jsx
+
+[4] PASO 5 - Términos
+   {
+     stepper: 5,
+     id: number | null
+       (1 si ambos checks marcados)
+       (null si falta alguno)
+   }
+   └─ Actualizado por: Step5.jsx
+
+DIAGRAMA 5: ESTADO DE VALIDACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+            isStepComplete()
+                   │
+        ┌──────────┴─────────────┐
+        │                        │
+   ¿Paso actual     ¿Todos los
+   en SaveStepper?  valores ≠ null
+        │           y ≠ ""?
+     ┌──┴──┐       ┌──┴──┐
+    NO    SÍ      NO    SÍ
+     │     │      │     │
+   false  │      false true
+          │       │    │
+          └───┬───┴────┘
+              │
+         Resultado: Boolean
+
+FLUJO COMPLETO:
+
+Valor guardado → SaveStepper actualizado
+              ↓
+         isStepComplete()
+              ↓
+         true / false
+              ↓
+    className += !isStepComplete() ? 'disabled' : ''
+              ↓
+    button.disabled = !isStepComplete()
+              ↓
+    Botón habilitado/deshabilitado
+              ↓
+    Usuario ve feedback visual
+
+DIAGRAMA 6: CICLO DE REACTIVIDAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+User Input (onChange, onClick)
+     ↓
+Component Handler (handleChange, handleSelect)
+     ↓
+Actualiza Estado Local (setFormData, setSelectedId)
+     ↓
+Validación (Zod, mantenedores de lógica)
+     ↓
+onDataChange(nombre, valor)
+     ↓
+Steppers.jsx → handleDataChange()
+     ↓
+SaveStepper[index] = valor
+     ↓
+setRefresh(prev => prev + 1)  ← Fuerza re-render
+     ↓
+Re-render de Steppers.jsx
+     ↓
+isStepComplete() ejecuta
+     ↓
+Obtiene nuevo SaveStepper
+     ↓
+Props actualizadas: currentCard, savedData
+     ↓
+Componentes hijos reciben nuevas props
+     ↓
+Estados locales se sincronizan
+     ↓
+Botones Se habilitan/deshabilitan
+     ↓
+UI Actualizada
+     ↓
+[Espera siguiente interacción del usuario]
+
+================================================================================
+CONCLUSIÓN
+================================================================================
+
+Este sistema es una APLICACIÓN DE FORMULARIO MULTI-PASO (STEPPER) que:
+
+1. ESTRUCTURA:
+   - React Router para navegación entre /main y /final
+   - 5 componentes de paso reutilizables
+   - 1 contenedor principal (Steppers.jsx)
+
+2. VALIDACIÓN:
+   - Zod para esquemas de validación
+   - React Hook Form para formularios complejos
+   - Validación en tiempo real
+
+3. GESTIÓN DE ESTADO:
+   - Estado local en componentes (selectedId, formData)
+   - Estado "global" en SaveStepper (array en steps.ts)
+   - Props para comunicación padre-hijo
+   - Callbacks para comunicación hijo-padre
+
+4. FLUJO DE DATOS:
+   - Unidireccional: Usuario → Componente → Padre → SaveStepper
+   - Retroalimentación: SaveStepper → Re-render → Actualización UI
+
+5. NAVEGACIÓN:
+   - Validación de pasos completados
+   - Bloqueo de avance si paso incompleto
+   - Libertad para retroceder
+   - Confirmación final antes de completar
+
+6. EXPERIENCIA DE USUARIO:
+   - Indicador visual de progreso
+   - Botones contextuales según estado
+   - Mensajes de error en validación
+   - Confirmaciones antes de acciones críticas
+
+El código está bien organizado, es mantenible y sigue patrones de React modernos.
+
+================================================================================
+FIN DEL ANÁLISIS
+================================================================================
